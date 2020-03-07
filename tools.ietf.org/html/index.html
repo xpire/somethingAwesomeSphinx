@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+   <meta http-equiv="Content-Style-Type" content="text/css" />
+   <meta http-equiv="Refresh" content="86400" />
+
+   <!-- JavaScript -->
+   <script language="javascript1.1" src="/js/hide.js" type="text/javascript"></script>
+   <script language="javascript1.1" src="/js/updated.js" type="text/javascript"></script>
+
+   <link rel="icon" href="/ietf.ico" />
+   <link rel="shortcut icon" href="/ietf.ico" />
+   <link rel="apple-touch-icon" href="/images/ietflogo3h.png"/>
+   <link rel="alternate" href="/html/new-rfcs.rss" title="New RFCs" type="application/rss+xml" />
+   <link rel="alternate" href="/html/new-ids.rss" title="New IDs" type="application/rss+xml" />
+   <link rel="stylesheet" href="/css/wg-page.css" type="text/css" />
+
+   <title>IETF Documents</title>
+
+   <style>
+     input.gsc-input { font-size: 11px; }
+     div.gsc-control-cse { padding: 0; width: 72ex; }
+   </style>
+
+   <script type="text/javascript"><!--
+      function enableScriptedForm () {
+	  elem1 = document.getElementById('scripted_form');
+	  elem1.style.visibility="visible";
+	  elem1.style.position="static";
+	  elem2 = document.getElementById('unscripted_form');
+	  elem2.style.visibility="hidden";
+	  elem2.style.position="absolute";
+      }
+   //-->
+   </script>
+</head>
+
+<body onload="enableScriptedForm();">
+   <div class="right" style="margin: 0 3px;"></div>
+   <div class="page">
+      <table border="0" width="100%" >
+	 <tr>
+	    	<!-- Left column --><!--*- html -*-->
+	<!-- Generated from narrow-menu.pyht -->
+        <block>
+	<script type="text/javascript" >
+	   if (typeof jQuery == 'undefined') {  
+	       // jQuery is not loaded => load it:
+	       var script = document.createElement('script');
+	       script.type = 'text/javascript';
+	       script.src = '/tools/trac/htdocs/js/jquery.js';
+	       document.getElementsByTagName('body')[0].appendChild(script);
+	       jQuery.noConflict();
+	   }
+	</script>
+
+	<img id="show" src="/images/show.gif" style="position: absolute; top: 0.3em; left: 0" onclick='jQuery("#narrow_menu").show("slow"); jQuery(this).hide(); jQuery("#hide").show("slow")' onload='jQuery(this).hide()'/>
+	<td valign="top" class="wglist" id="narrow_menu">
+	  <table class="menutop">
+	     <tr>
+		<td class="logomargin">&nbsp;</td>
+	  <!-- - ietf tools logo with link back to the ietf tools site,   -->
+		<td class="logoimg"><a href="/"><img class="logo" alt="IETF" src="/images/ietflogo3h.png" /></a></td>
+		<td class="logomargin"><img id="hide" src="/images/hide.gif" onclick='jQuery("#narrow_menu").hide("slow"); jQuery(this).hide(); jQuery("#show").show("slow")' /></td>
+	     </tr>
+	  </table>
+	  
+	  <div class="menuitem"><a href="https://www.ietf.org/">IETF&nbsp;Home</a></div>
+	  <div class="menuitem"><a href="/about">About&nbsp;Tools</a></div>
+	  <div class="menuitem"><a href="/tools">Tools:</a>
+	     <div class="subitem small">
+		<a href="/rfcdiff">diffs</a>&nbsp;<a href="/tools/idspell/webservice">spell</a><br />
+		<a href="http://xml2rfc.ietf.org/">xml2rfc</a>&nbsp;<a href="/tools/idnits">idnits</a><br />
+		<a href="https://pypi.org/project/id2xml/">id2xml</a>
+		<a href="/tools/ietfdb/browser/trunk/">tracker&nbsp;src</a>
+	     </div>
+	  </div>
+	  <div class="menuitem"><a href="/dailydose">News</a></div>
+
+	  <!--
+	  <div class="menuitem"><a href="http://www.arkko.com/tools/stats">Stats:</a>
+	     <div class="subitem small">
+		<a href="http://www.arkko.com/tools/docstats">Docs</a>
+		<a href="http://beta.iana.org/about/performance/ietf-statistics/">IANA</a>
+		<br />
+		<a href="http://rtg.ietf.org/~fenner/iesg/">Misc</a>
+		<a href="http://www.arkko.com/tools/admeasurements">IESG</a>
+	     </div>
+	  </div>
+	  -->
+
+	  <div class="menuitem"><a href="https://tools.ietf.org/newlogin">Get&nbsp;Passwd</a></div>
+
+	  <div class="menuitem">IETF-107:
+	     <div class="subitem"><a href="/rooms">Rooms</a></div>
+	     <div class="subitem"><a href="/agenda/107">Agenda</a></div>
+	     <div class="subitem"><a href="/agenda/107/calendar">iCal maker</a></div>
+	  </div>
+
+	  <div class="topitem"><a href="/html/">Documents</a></div>
+	  <div class="topitem"><a href="/rfc/index">RFCs</a></div>
+	  <form class="menuform" action="/html/" name="rfcform" onsubmit="return inputMassage()"
+		title="Enter document number or name - rfc, bcp, draft-... etc., and hit return.">
+	  <div class="topitem" >Doc&nbsp;fetch:</div>
+	  <div class="subitem" style="margin: 0;"><input class="frugal" type="text" name="doc" /></div>
+	  <script type="text/javascript">
+	    function inputMassage() {
+		window.location = document.rfcform.action + document.rfcform.doc.value.replace(/^ */,'').replace(/ *$/,'');		return false;
+	    }
+	  </script>
+	  </form>
+	  <div class="menuitem">Wikis:
+	     <div class="subitem small">
+		<a href="/group/iesg/trac">IESG</a>&nbsp;<a href="/group/irtf/trac/wiki">IRTF</a><br />
+		<a href="/tools/ietfdb/" title="Datatracker development">Dev</a>&nbsp;<a href="/group/rsoc">RSOC</a><br />
+		<a href="/group/wgchairs/">Chairs</a>&nbsp;<a href="/group/edu/" title="Tools Team">Edu</a><br />
+		<a href="/group/tools/trac/" title="Tools Team">Tools</a>&nbsp;<a href="/bof">BOFs</a>
+	     </div>
+	  </div>
+	  <div class="topitem"><a href="https://datatracker.ietf.org/nomcom/2020/">NomCom</a></div>
+	  <div class="menuitem"><a href="/area">Areas</a></div>
+	  <div class="topitem"><a href="/wg">WGs</a>:</div>
+	  <div class="subitem small"><a href="/wg/concluded"><i>concluded&hellip;</i></a></div>
+
+	  <div class="subitem"><span ><a href="/wg/6lo/">6lo</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/6man/">6man</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/6tisch/">6tisch</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/ace/">Ace</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/acme/">Acme</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/add/">Add</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/alto/">Alto</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/anima/">Anima</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/avtcore/">Avtcore</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/babel/">Babel</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/bess/">Bess</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/bfcpbis/">Bfcpbis</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/bfd/">Bfd</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/bier/">Bier</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/bmwg/">Bmwg</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/calext/">Calext</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/capport/">Capport</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/cbor/">Cbor</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/ccamp/">Ccamp</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/cdni/">Cdni</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/cellar/">Cellar</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/clue/">Clue</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/core/">Core</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/cose/">Cose</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/curdle/">Curdle</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/detnet/">Detnet</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/dhc/">Dhc</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/dime/">Dime</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/dispatch/">Dispatch</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/dmarc/">Dmarc</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/dmm/">Dmm</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/dnsop/">Dnsop</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/dnssd/">Dnssd</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/doh/">Doh</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/dots/">Dots</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/dprive/">Dprive</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/drip/">Drip</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/dtn/">Dtn</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/ecrit/">Ecrit</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/emu/">Emu</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/extra/">Extra</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/gendispatch/">Gendispatch</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/git/">Git</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/grow/">Grow</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/hip/">Hip</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/homenet/">Homenet</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/httpbis/">Httpbis</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/i2nsf/">I2nsf</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/i2rs/">I2rs</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/iasa2/">Iasa2</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/ice/">Ice</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/idr/">Idr</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/intarea/">Intarea</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/ippm/">Ippm</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/ipsecme/">Ipsecme</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/ipwave/">Ipwave</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/jmap/">Jmap</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/kitten/">Kitten</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/lake/">Lake</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/lamps/">Lamps</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/lisp/">Lisp</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/lpwan/">Lpwan</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/lsr/">Lsr</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/lsvr/">Lsvr</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/lwig/">Lwig</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/manet/">Manet</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/mboned/">Mboned</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/mile/">Mile</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/mls/">Mls</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/mmusic/">Mmusic</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/mops/">Mops</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/mpls/">Mpls</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/mptcp/">Mptcp</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/mtgvenue/">Mtgvenue</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/netconf/">Netconf</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/netmod/">Netmod</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/netvc/">Netvc</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/nfsv4/">Nfsv4</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/ntp/">Ntp</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/nvo3/">Nvo3</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/oauth/">Oauth</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/opsawg/">Opsawg</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/opsec/">Opsec</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/pals/">Pals</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/pce/">Pce</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/perc/">Perc</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/pim/">Pim</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/quic/">Quic</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/radext/">Radext</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/rats/">Rats</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/raw/">Raw</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/regext/">Regext</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/rift/">Rift</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/rmcat/">Rmcat</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/roll/">Roll</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/rtgwg/">Rtgwg</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/rum/">Rum</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/sacm/">Sacm</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/secdispatch/">Secdispatch</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/secevent/">Secevent</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/sfc/">Sfc</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/sidrops/">Sidrops</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/sipbrandy/">Sipbrandy</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/sipcore/">Sipcore</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/spring/">Spring</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/stir/">Stir</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/suit/">Suit</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/taps/">Taps</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/tcpm/">Tcpm</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/teas/">Teas</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/teep/">Teep</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/tictoc/">Tictoc</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/tls/">Tls</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/tokbind/">Tokbind</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/tram/">Tram</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/trans/">Trans</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/tsvwg/">Tsvwg</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/uta/">Uta</a><span class="new"></span></span></div>
+            <div class="subitem"><span ><a href="/wg/v6ops/">V6ops</a><span class="new"></span></span></div>
+            	<br />
+	<span class="update">
+	  <img src='/images/asterisk.png' alt='*' /> WGs marked with an <span class="new"><img src='/images/asterisk.png' alt='*' /></span> asterisk has had at least one new
+	  draft made available during the last 5 days</span>
+	</td>
+	</block>
+
+	    	    <td valign="top">
+	       <div class="content">
+		  <h1 align="center">IETF Documents</h1>
+
+		  <p>
+		     <big><b>Retrieve a document (with HTML markup):</b></big>
+		  </p>
+		  <p>
+
+
+		  </p>
+		  <p>
+		     <form action="/rfcmarkup" name="docfind" onsubmit="return docfindRedirect()">
+			<table>
+			   <tr>
+			      <td style="width: 24ex;">RFC number, draft
+				 name<br />(full or partial) or URL:</td>
+			      <td><input type="text" size="31" name="doc" /></td>
+			      <td><input type="Submit" value="Get Document"/></td>
+			   </tr>
+			</table>
+			<script type="text/javascript">
+			   function docfindRedirect() {
+			       target = document.docfind.doc.value;
+			       if ( target.match(/^(https?|ftp):\/\/.+/) ) {
+				   window.location = "/rfcmarkup?url=" + target;
+			       } else {
+				   window.location = "/html/" + target;
+			       }
+			       return false;
+			   }
+			</script>
+		     </form>
+		  </p>
+
+
+		  <p>
+		     <big><b>Use Google to search drafts and RFCs:</b></big>
+		  </p>
+		  <p>
+
+		     <div id="scripted_form" style="visibility: hidden; position: absolute">
+		     <!-- Use this if the browser runs javascript -->
+			<script>
+			  (function() {
+			    var cx = '007003683913285973207:fbb_m4xz23c';
+			    var gcse = document.createElement('script');
+			    gcse.type = 'text/javascript';
+			    gcse.async = true;
+			    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+			    var s = document.getElementsByTagName('script')[0];
+			    s.parentNode.insertBefore(gcse, s);
+			  })();
+			</script>
+			<gcse:search></gcse:search>
+		     </div>
+		     <div id="unscripted_form">
+		     <!-- Use this if the browser doesn't use javascript -->
+		     <form action="https://www.google.com/search" >
+			<table bgcolor="#FFFFFF">
+			   <tr align="center">
+			      <td style="width: 24ex;">
+				 <a href="https://www.google.com/">
+				    <img src="/images/Logo_25wht.gif" border="0" alt="Google">
+				 </a>
+			      </td>
+			      <td>
+				 <input name="as_q" type="text" size="31" />
+				 <input name="as_sitesearch" type="hidden" value="tools.ietf.org/html/" />
+				 <input type="submit" name="sa" value="Google Search" />
+			      </td>
+			   </tr>
+			</table>
+		     </form>
+		     </div>
+		  </p>
+
+		  <p>
+		     <h3><div class="right" style="margin: 0 3px;"><a href="new-rfcs.rss"><img class="logo" src="/images/subscribe.gif" /></a></div>New RFCs in the repository during the last 14 days:</h3>
+		     <p>(Full index pages to htmlized RFCs are available, too: <a href="/rfc/">traditional</a>, <a href="/rfc/mini-index">mini</a>, <a href="rfcs">2-column</a>.)</p>
+		     <div style="margin-left: 2em;">
+			<table>
+			   <tr><td valign="top" style="padding-right: 1ex"><a href="rfc8489">rfc8489</a></td><td>Session Traversal Utilities for NAT (STUN).<br /><small>M. Petit-Huguenin, G.      Salgueiro, J. Rosenberg, D. Wing, R. Mahy, P. Matthews. February      2020.<br />(Format: TXT, HTML) (Obsoletes <a href="/html/rfc5389">RFC5389</a>) (Status: PROPOSED      STANDARD) (DOI: 10.17487/RFC8489)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8656">rfc8656</a></td><td>Traversal Using Relays around NAT (TURN): Relay Extensions to      Session Traversal Utilities for NAT (STUN).<br /><small>T. Reddy, Ed., A.      Johnston, Ed., P. Matthews, J. Rosenberg. February 2020.<br />(Format:      HTML, TXT, PDF, XML) (Obsoletes <a href="/html/rfc5766">RFC5766</a>, <a href="/html/rfc6156">RFC6156</a>) (Status: PROPOSED      STANDARD) (DOI: 10.17487/RFC8656)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8695">rfc8695</a></td><td>A YANG Data Model for the Routing Information Protocol (RIP).<br /><small>X.      Liu, P. Sarda, V. Choudhary. February 2020.<br />(Format: HTML, TXT, PDF,      XML) (Status: PROPOSED STANDARD) (DOI: 10.17487/RFC8695)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8705">rfc8705</a></td><td>OAuth 2.0 Mutual-TLS Client Authentication and Certificate-Bound      Access Tokens.<br /><small>B. Campbell, J. Bradley, N. Sakimura, T. Lodderstedt.      February 2020.<br />(Format: HTML, TXT, PDF, XML) (Status: PROPOSED      STANDARD) (DOI: 10.17487/RFC8705)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8706">rfc8706</a></td><td>Restart Signaling for IS-IS.<br /><small>L. Ginsberg, P. Wells. February 2020.      (Format: HTML, TXT, PDF, XML) (Obsoletes <a href="/html/rfc5306">RFC5306</a>) (Status: PROPOSED      STANDARD) (DOI: 10.17487/RFC8706)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8707">rfc8707</a></td><td>Resource Indicators for OAuth 2.0.<br /><small>B. Campbell, J. Bradley, H.      Tschofenig. February 2020.<br />(Format: HTML, TXT, PDF, XML) (Status:      PROPOSED STANDARD) (DOI: 10.17487/RFC8707)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8709">rfc8709</a></td><td>Ed25519 and Ed448 Public Key Algorithms for the Secure Shell (SSH)      Protocol.<br /><small>B. Harris, L. Velvindron. February 2020.<br />(Format: HTML,      TXT, PDF, XML) (Updates <a href="/html/rfc4253">RFC4253</a>) (Status: PROPOSED STANDARD) (DOI:      10.17487/RFC8709)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8710">rfc8710</a></td><td>Multipart Content-Format for the Constrained Application Protocol      (CoAP).<br /><small>T. Fossati, K. Hartke, C. Bormann. February 2020.<br />(Format:      HTML, TXT, PDF, XML) (Status: PROPOSED STANDARD) (DOI:      10.17487/RFC8710)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8711">rfc8711</a></td><td>Structure of the IETF Administrative Support Activity, Version 2.0.<br /><small>     B. Haberman, J. Hall, J. Livingood. February 2020.<br />(Format: HTML,      TXT, PDF, XML) (Obsoletes <a href="/html/rfc4071">RFC4071</a>, <a href="/html/rfc4333">RFC4333</a>, <a href="/html/rfc7691">RFC7691</a>) (Also BCP0101)      (Status: BEST CURRENT PRACTICE) (DOI: 10.17487/RFC8711)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8712">rfc8712</a></td><td>The IETF-ISOC Relationship.<br /><small>G. Camarillo, J. Livingood. February      2020.<br />(Format: HTML, TXT, PDF, XML) (Obsoletes <a href="/html/rfc2031">RFC2031</a>) (Status:      INFORMATIONAL) (DOI: 10.17487/RFC8712)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8713">rfc8713</a></td><td>IAB, IESG, IETF Trust, and IETF LLC Selection, Confirmation, and      Recall Process: Operation of the IETF Nominating and Recall      Committees.<br /><small>M. Kucherawy, Ed., R. Hinden, Ed., J. Livingood, Ed..      February 2020.<br />(Format: HTML, TXT, PDF, XML) (Obsoletes <a href="/html/rfc7437">RFC7437</a>,      <a href="/html/rfc8318">RFC8318</a>) (Also BCP0010) (Status: BEST CURRENT PRACTICE) (DOI:      10.17487/RFC8713)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8714">rfc8714</a></td><td>Update to the Process for Selection of Trustees for the IETF Trust.<br /><small>     J. Arkko, T. Hardie. February 2020.<br />(Format: HTML, TXT, PDF, XML)      (Obsoletes <a href="/html/rfc4371">RFC4371</a>) (Also BCP0101) (Status: BEST CURRENT PRACTICE)      (DOI: 10.17487/RFC8714)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8715">rfc8715</a></td><td>IETF Administrative Support Activity 2.0: Update to the Process for      Selection of Trustees for the IETF Trust.<br /><small>J. Arkko. February 2020.      (Format: HTML, TXT, PDF, XML) (Status: INFORMATIONAL) (DOI:      10.17487/RFC8715)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8716">rfc8716</a></td><td>Update to the IETF Anti-Harassment Procedures for the Replacement of      the IETF Administrative Oversight Committee (IAOC) with the IETF      Administration LLC.<br /><small>P. Resnick, A. Farrel. February 2020.<br />(Format:      HTML, TXT, PDF, XML) (Updates <a href="/html/rfc7776">RFC7776</a>) (Also BCP0025) (Status: BEST      CURRENT PRACTICE) (DOI: 10.17487/RFC8716)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8717">rfc8717</a></td><td>IETF Administrative Support Activity 2.0: Consolidated Updates to      IETF Administrative Terminology.<br /><small>J. Klensin, Ed.. February 2020.      (Format: HTML, TXT, PDF, XML) (Updates <a href="/html/rfc2028">RFC2028</a>, <a href="/html/rfc2418">RFC2418</a>, <a href="/html/rfc3005">RFC3005</a>,      <a href="/html/rfc3710">RFC3710</a>, <a href="/html/rfc3929">RFC3929</a>, <a href="/html/rfc4633">RFC4633</a>, <a href="/html/rfc6702">RFC6702</a>) (Also BCP0101) (Status: BEST      CURRENT PRACTICE) (DOI: 10.17487/RFC8717)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8718">rfc8718</a></td><td>IETF Plenary Meeting Venue Selection Process.<br /><small>E. Lear, Ed.. February      2020.<br />(Format: HTML, TXT, PDF, XML) (Also BCP0226) (Status: BEST      CURRENT PRACTICE) (DOI: 10.17487/RFC8718)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8719">rfc8719</a></td><td>High-Level Guidance for the Meeting Policy of the IETF.<br /><small>S. Krishnan.      February 2020.<br />(Format: HTML, TXT, PDF, XML) (Also BCP0226) (Status:      BEST CURRENT PRACTICE) (DOI: 10.17487/RFC8719)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8720">rfc8720</a></td><td>Principles for Operation of Internet Assigned Numbers Authority      (IANA) Registries.<br /><small>R. Housley, Ed., O. Kolkman, Ed.. February 2020.      (Format: HTML, TXT, PDF, XML) (Obsoletes <a href="/html/rfc7500">RFC7500</a>) (Status:      INFORMATIONAL) (DOI: 10.17487/RFC8720)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8721">rfc8721</a></td><td>Advice to the Trustees of the IETF Trust on Rights to Be Granted in      IETF Documents.<br /><small>J. Halpern, Ed.. February 2020.<br />(Format: HTML, TXT,      PDF, XML) (Obsoletes <a href="/html/rfc5377">RFC5377</a>) (Status: INFORMATIONAL) (DOI:      10.17487/RFC8721)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8722">rfc8722</a></td><td>Defining the Role and Function of IETF Protocol Parameter Registry      Operators.<br /><small>D. McPherson, Ed., O. Kolkman, Ed., J. Klensin, Ed., G.      Huston, Ed.. February 2020.<br />(Format: HTML, TXT, PDF, XML) (Obsoletes      <a href="/html/rfc6220">RFC6220</a>) (Status: INFORMATIONAL) (DOI: 10.17487/RFC8722)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8725">rfc8725</a></td><td>JSON Web Token Best Current Practices.<br /><small>Y. Sheffer, D. Hardt, M.      Jones. February 2020.<br />(Format: HTML, TXT, PDF, XML) (Updates      <a href="/html/rfc7519">RFC7519</a>) (Also BCP0225) (Status: BEST CURRENT PRACTICE) (DOI:      10.17487/RFC8725)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8728">rfc8728</a></td><td>RFC Editor Model (Version 2).<br /><small>O. Kolkman, Ed., J. Halpern, Ed., R.      Hinden, Ed.. February 2020.<br />(Format: HTML, TXT, PDF, XML) (Obsoletes      <a href="/html/rfc6635">RFC6635</a>) (Status: INFORMATIONAL) (DOI: 10.17487/RFC8728)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8729">rfc8729</a></td><td>The RFC Series and RFC Editor.<br /><small>R. Housley, Ed., L. Daigle, Ed..      February 2020.<br />(Format: HTML, TXT, PDF, XML) (Obsoletes <a href="/html/rfc4844">RFC4844</a>)      (Status: INFORMATIONAL) (DOI: 10.17487/RFC8729)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8730">rfc8730</a></td><td>Independent Submission Editor Model.<br /><small>N. Brownlee, Ed., B. Hinden,      Ed.. February 2020.<br />(Format: HTML, TXT, PDF, XML) (Obsoletes      <a href="/html/rfc6548">RFC6548</a>) (Status: INFORMATIONAL) (DOI: 10.17487/RFC8730)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8731">rfc8731</a></td><td>Secure Shell (SSH) Key Exchange Method Using Curve25519 and      Curve448.<br /><small>A. Adamantiadis, S. Josefsson, M. Baushke. February 2020.      (Format: HTML, TXT, PDF, XML) (Status: PROPOSED STANDARD) (DOI:      10.17487/RFC8731)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8732">rfc8732</a></td><td>Generic Security Service Application Program Interface (GSS-API) Key      Exchange with SHA-2.<br /><small>S. Sorce, H. Kario. February 2020.<br />(Format:      HTML, TXT, PDF, XML) (Updates <a href="/html/rfc4462">RFC4462</a>) (Status: PROPOSED STANDARD)      (DOI: 10.17487/RFC8732)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8733">rfc8733</a></td><td>Path Computation Element Communication Protocol (PCEP) Extensions      for MPLS-TE Label Switched Path (LSP) Auto-Bandwidth Adjustment with      Stateful PCE.<br /><small>D. Dhody, Ed., R. Gandhi, Ed., U. Palle, R. Singh, L.      Fang. February 2020.<br />(Format: HTML, TXT, PDF, XML) (Status: PROPOSED      STANDARD) (DOI: 10.17487/RFC8733)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8734">rfc8734</a></td><td>Elliptic Curve Cryptography (ECC) Brainpool Curves for Transport      Layer Security (TLS) Version 1.3.<br /><small>L. Bruckert, J. Merkle, M.      Lochter. February 2020.<br />(Format: HTML, TXT, PDF, XML) (Status:      INFORMATIONAL) (DOI: 10.17487/RFC8734)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8735">rfc8735</a></td><td>Scenarios and Simulation Results of PCE in a Native IP Network.<br /><small>A.      Wang, X. Huang, C. Kou, Z. Li, P. Mi. February 2020.<br />(Format: HTML,      TXT, PDF, XML) (Status: INFORMATIONAL) (DOI: 10.17487/RFC8735)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8736">rfc8736</a></td><td>PIM Message Type Space Extension and Reserved Bits.<br /><small>S. Venaas, A.      Retana. February 2020.<br />(Format: HTML, TXT, PDF, XML) (Obsoletes      <a href="/html/rfc6166">RFC6166</a>) (Updates <a href="/html/rfc3973">RFC3973</a>, <a href="/html/rfc5015">RFC5015</a>, <a href="/html/rfc5059">RFC5059</a>, <a href="/html/rfc6754">RFC6754</a>, <a href="/html/rfc7761">RFC7761</a>,      <a href="/html/rfc8364">RFC8364</a>) (Status: PROPOSED STANDARD) (DOI: 10.17487/RFC8736)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8737">rfc8737</a></td><td>Automated Certificate Management Environment (ACME) TLS      Application‑Layer Protocol Negotiation (ALPN) Challenge Extension.<br /><small>     R.B. Shoemaker. February 2020.<br />(Format: HTML, TXT, PDF, XML)      (Status: PROPOSED STANDARD) (DOI: 10.17487/RFC8737)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8738">rfc8738</a></td><td>Automated Certificate Management Environment (ACME) IP Identifier      Validation Extension.<br /><small>R.B. Shoemaker. February 2020.<br />(Format: HTML,      TXT, PDF, XML) (Status: PROPOSED STANDARD) (DOI: 10.17487/RFC8738)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8740">rfc8740</a></td><td>Using TLS 1.3 with HTTP/2.<br /><small>D. Benjamin. February 2020.<br />(Format:      HTML, TXT, PDF, XML) (Updates <a href="/html/rfc7540">RFC7540</a>) (Status: PROPOSED STANDARD)      (DOI: 10.17487/RFC8740)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8742">rfc8742</a></td><td>Concise Binary Object Representation (CBOR) Sequences.<br /><small>C. Bormann.      February 2020.<br />(Format: HTML, TXT, PDF, XML) (Status: PROPOSED      STANDARD) (DOI: 10.17487/RFC8742)</small></td></tr><tr><td valign="top" style="padding-right: 1ex"><a href="rfc8746">rfc8746</a></td><td>Concise Binary Object Representation (CBOR) Tags for Typed Arrays.<br /><small>     C. Bormann, Ed.. February 2020.<br />(Format: HTML, TXT, PDF, XML)      (Status: PROPOSED STANDARD) (DOI: 10.17487/RFC8746)</small></td></tr>			</table>
+		     </div>
+		     <h3><div class="right" style="margin: 0 3px;"><a href="new-ids.rss"><img class="logo" src="/images/subscribe.gif" /></a></div>New Drafts during the last 72 hours (timestamps in UTC):<br />
+		     <small><i>(Other time periods: <a href="recent-drafts?days=7">1 week</a>, <a href="recent-drafts?days=21">3 weeks</a>, <a href="recent-drafts?days=61">2 months</a>)</i></small></h3>
+		     <div style="margin-left: 2em;">
+			<tt><small>2020-03-01 02:43&nbsp;<a href="/id/draft-ietf-netmod-module-tags-10.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-netmod-module-tags-10">draft-ietf-netmod-module-tags-10</a><br />
+                               <tt><small>2020-03-01 01:11&nbsp;<a href="/id/draft-oran-icnrg-flowbalance-03.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-oran-icnrg-flowbalance-03">draft-oran-icnrg-flowbalance-03</a><br />
+                               <tt><small>2020-02-29 19:10&nbsp;<a href="/id/draft-hellstrom-avtcore-multi-party-rtt-source-01.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-hellstrom-avtcore-multi-party-rtt-source-01">draft-hellstrom-avtcore-multi-party-rtt-source-01</a><br />
+                               <tt><small>2020-02-29 07:03&nbsp;<a href="/id/draft-wilton-netmod-yang-ver-selection-02.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-wilton-netmod-yang-ver-selection-02">draft-wilton-netmod-yang-ver-selection-02</a><br />
+                               <tt><small>2020-02-29 04:53&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-ietf-tcpm-2140bis-02">draft-ietf-tcpm-2140bis-02</a><br />
+                               <tt><small>2020-02-29 03:02&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-ietf-bess-srv6-services-02">draft-ietf-bess-srv6-services-02</a><br />
+                               <tt><small>2020-02-29 01:56&nbsp;<a href="/id/draft-ietf-idr-bgp-ls-segment-routing-msd-11.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-idr-bgp-ls-segment-routing-msd-11">draft-ietf-idr-bgp-ls-segment-routing-msd-11</a><br />
+                               <tt><small>2020-02-29 01:16&nbsp;<a href="/id/draft-ietf-idr-bgp-ls-segment-routing-msd-10.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-idr-bgp-ls-segment-routing-msd-10">draft-ietf-idr-bgp-ls-segment-routing-msd-10</a><br />
+                               <tt><small>2020-02-29 00:58&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-ietf-regext-data-escrow-05">draft-ietf-regext-data-escrow-05</a><br />
+                               <tt><small>2020-02-29 00:08&nbsp;<a href="/id/draft-ietf-oauth-browser-based-apps-05.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-oauth-browser-based-apps-05">draft-ietf-oauth-browser-based-apps-05</a><br />
+                               <tt><small>2020-02-28 20:09&nbsp;<a href="/id/draft-ladd-nts-for-ntp-pool-00.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ladd-nts-for-ntp-pool-00">draft-ladd-nts-for-ntp-pool-00</a><br />
+                               <tt><small>2020-02-28 19:53&nbsp;<a href="/id/draft-moskowitz-tmrid-crowd-sourced-rid-00.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-moskowitz-tmrid-crowd-sourced-rid-00">draft-moskowitz-tmrid-crowd-sourced-rid-00</a><br />
+                               <tt><small>2020-02-28 19:20&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-ietf-lamps-5480-ku-clarifications-02">draft-ietf-lamps-5480-ku-clarifications-02</a><br />
+                               <tt><small>2020-02-28 17:53&nbsp;<a href="/id/draft-oran-icnrg-qosarch-04.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-oran-icnrg-qosarch-04">draft-oran-icnrg-qosarch-04</a><br />
+                               <tt><small>2020-02-28 15:36&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-smyslov-ike2-gost-03">draft-smyslov-ike2-gost-03</a><br />
+                               <tt><small>2020-02-28 15:17&nbsp;<a href="/id/draft-ietf-jmap-mdn-06.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-jmap-mdn-06">draft-ietf-jmap-mdn-06</a><br />
+                               <tt><small>2020-02-28 15:04&nbsp;<a href="/id/draft-ietf-tcpm-converters-17.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-tcpm-converters-17">draft-ietf-tcpm-converters-17</a><br />
+                               <tt><small>2020-02-28 14:41&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-ietf-alto-cost-calendar-18">draft-ietf-alto-cost-calendar-18</a><br />
+                               <tt><small>2020-02-28 14:24&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-sarathchandra-coin-appcentres-02">draft-sarathchandra-coin-appcentres-02</a><br />
+                               <tt><small>2020-02-28 13:54&nbsp;<a href="/id/draft-ietf-lpwan-schc-yang-data-model-02.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-lpwan-schc-yang-data-model-02">draft-ietf-lpwan-schc-yang-data-model-02</a><br />
+                               <tt><small>2020-02-28 13:50&nbsp;<a href="/id/draft-wang-idr-bgp-ls-ifit-node-capability-00.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-wang-idr-bgp-ls-ifit-node-capability-00">draft-wang-idr-bgp-ls-ifit-node-capability-00</a><br />
+                               <tt><small>2020-02-28 13:48&nbsp;<a href="/id/draft-wang-lsr-ospf-ifit-node-capability-00.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-wang-lsr-ospf-ifit-node-capability-00">draft-wang-lsr-ospf-ifit-node-capability-00</a><br />
+                               <tt><small>2020-02-28 13:45&nbsp;<a href="/id/draft-liu-idr-flowspec-ifit-00.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-liu-idr-flowspec-ifit-00">draft-liu-idr-flowspec-ifit-00</a><br />
+                               <tt><small>2020-02-28 13:40&nbsp;<a href="/id/draft-liu-lsr-isis-ifit-node-capability-00.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-liu-lsr-isis-ifit-node-capability-00">draft-liu-lsr-isis-ifit-node-capability-00</a><br />
+                               <tt><small>2020-02-28 13:00&nbsp;<a href="/id/draft-boucadair-opsawg-tcpm-converter-01.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-boucadair-opsawg-tcpm-converter-01">draft-boucadair-opsawg-tcpm-converter-01</a><br />
+                               <tt><small>2020-02-28 11:19&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-ietf-dhc-slap-quadrant-04">draft-ietf-dhc-slap-quadrant-04</a><br />
+                               <tt><small>2020-02-28 10:45&nbsp;<a href="/id/draft-ietf-6tisch-msf-11.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-6tisch-msf-11">draft-ietf-6tisch-msf-11</a><br />
+                               <tt><small>2020-02-28 08:12&nbsp;<a href="/id/draft-irtf-nwcrg-network-coding-satellites-11.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-irtf-nwcrg-network-coding-satellites-11">draft-irtf-nwcrg-network-coding-satellites-11</a><br />
+                               <tt><small>2020-02-28 08:08&nbsp;<a href="/id/draft-xiao-bfd-padding-alteration-00.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-xiao-bfd-padding-alteration-00">draft-xiao-bfd-padding-alteration-00</a><br />
+                               <tt><small>2020-02-28 04:21&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-ietf-mpls-ldp-yang-08">draft-ietf-mpls-ldp-yang-08</a><br />
+                               <tt><small>2020-02-28 03:37&nbsp;<a href="/id/draft-ietf-isis-te-app-11.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-isis-te-app-11">draft-ietf-isis-te-app-11</a><br />
+                               <tt><small>2020-02-28 03:25&nbsp;<a href="/id/draft-xia-rats-pubsub-model-02.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-xia-rats-pubsub-model-02">draft-xia-rats-pubsub-model-02</a><br />
+                               <tt><small>2020-02-27 23:31&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-ietf-dhc-slap-quadrant-03">draft-ietf-dhc-slap-quadrant-03</a><br />
+                               <tt><small>2020-02-27 23:23&nbsp;<a href="/id/draft-huitema-quic-ts-01.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-huitema-quic-ts-01">draft-huitema-quic-ts-01</a><br />
+                               <tt><small>2020-02-27 20:48&nbsp;<a href="/id/draft-ietf-bfd-secure-sequence-numbers-05.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-bfd-secure-sequence-numbers-05">draft-ietf-bfd-secure-sequence-numbers-05</a><br />
+                               <tt><small>2020-02-27 20:35&nbsp;<a href="/id/draft-ietf-bfd-stability-05.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-bfd-stability-05">draft-ietf-bfd-stability-05</a><br />
+                               <tt><small>2020-02-27 17:07&nbsp;<a href="/id/draft-ietf-rmcat-wireless-tests-09.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-rmcat-wireless-tests-09">draft-ietf-rmcat-wireless-tests-09</a><br />
+                               <tt><small>2020-02-27 16:30&nbsp;<a href="/id/draft-koldychev-pce-operational-01.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-koldychev-pce-operational-01">draft-koldychev-pce-operational-01</a><br />
+                               <tt><small>2020-02-27 16:15&nbsp;<a href="/id/draft-ietf-rmcat-eval-criteria-12.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-rmcat-eval-criteria-12">draft-ietf-rmcat-eval-criteria-12</a><br />
+                               <tt><small>2020-02-27 15:58&nbsp;<a href="/id/draft-voit-rats-trusted-path-routing-00.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-voit-rats-trusted-path-routing-00">draft-voit-rats-trusted-path-routing-00</a><br />
+                               <tt><small>2020-02-27 15:32&nbsp;<a href="/id/draft-detchart-nwcrg-tetrys-05.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-detchart-nwcrg-tetrys-05">draft-detchart-nwcrg-tetrys-05</a><br />
+                               <tt><small>2020-02-27 15:22&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-bernardos-intarea-vim-discovery-03">draft-bernardos-intarea-vim-discovery-03</a><br />
+                               <tt><small>2020-02-27 15:04&nbsp;<a href="/id/draft-bonica-6man-vpn-dest-opt-10.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-bonica-6man-vpn-dest-opt-10">draft-bonica-6man-vpn-dest-opt-10</a><br />
+                               <tt><small>2020-02-27 13:37&nbsp;<a href="/id/draft-wachter-6lo-can-01.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-wachter-6lo-can-01">draft-wachter-6lo-can-01</a><br />
+                               <tt><small>2020-02-27 13:06&nbsp;<a href="/id/draft-irtf-nwcrg-network-coding-satellites-10.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-irtf-nwcrg-network-coding-satellites-10">draft-irtf-nwcrg-network-coding-satellites-10</a><br />
+                               <tt><small>2020-02-27 09:30&nbsp;&nbsp;&nbsp;&nbsp;</small></tt>&nbsp;&nbsp;<a href="draft-fz-6man-ipv6-alt-mark-06">draft-fz-6man-ipv6-alt-mark-06</a><br />
+                               <tt><small>2020-02-27 09:04&nbsp;<a href="/id/draft-ietf-tsvwg-transport-encrypt-12.xml">XML</a></small></tt>&nbsp;&nbsp;<a href="draft-ietf-tsvwg-transport-encrypt-12">draft-ietf-tsvwg-transport-encrypt-12</a><br />
+                               		     </div>
+		  </p>
+	       </div>
+	       <div class="update">
+		  
+		  Latest update: 2020-02-29 20:33 PST - 
+		  <a href="mailto:webmaster@tools.ietf.org">webmaster@tools.ietf.org</a>
+	       </div>
+	    </td>
+	 </tr>
+      </table>
+   </div>
+</body>
+</html>

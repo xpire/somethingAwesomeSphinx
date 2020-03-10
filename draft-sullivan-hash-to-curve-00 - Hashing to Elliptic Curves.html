@@ -1,0 +1,1189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0059)https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head profile="http://dublincore.org/documents/2008/08/04/dc-html/"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="robots" content="index,follow">
+    <meta name="creator" content="rfcmarkup version 1.129b">
+    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.Identifier" content="urn:ietf:id:sullivan-hash-to-curve">
+<meta name="DC.Description.Abstract" content="This document specifies a number of algorithms that may be used to
+hash arbitrary strings to Elliptic Curves.">
+<meta name="DC.Creator" content="Wood, Christopher">
+<meta name="DC.Creator" content="Sullivan, Nick">
+<meta name="DC.Date.Issued" content="2018-03-05">
+<meta name="DC.Title" content="Hashing to Elliptic Curves">
+
+    <link rel="icon" href="https://tools.ietf.org/images/id.png" type="image/png">
+    <link rel="shortcut icon" href="https://tools.ietf.org/images/id.png" type="image/png">
+    <title>draft-sullivan-hash-to-curve-00 - Hashing to Elliptic Curves</title>
+    
+    
+    <style type="text/css">
+	@media only screen 
+	  and (min-width: 992px)
+	  and (max-width: 1199px) {
+	    body { font-size: 14pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (min-width: 768px)
+	  and (max-width: 991px) {
+            body { font-size: 14pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (min-width: 480px)
+	  and (max-width: 767px) {
+            body { font-size: 11pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (max-width: 479px) {
+            body { font-size: 8pt; }
+            div.content { width: 96ex; margin: 0 auto; }
+        }
+	@media only screen 
+	  and (min-device-width : 375px) 
+	  and (max-device-width : 667px) {
+            body { font-size: 9.5pt; }
+            div.content { width: 96ex; margin: 0; }
+        }
+	@media only screen 
+	  and (min-device-width: 1200px) {
+            body { font-size: 10pt; margin: 0 4em; }
+            div.content { width: 96ex; margin: 0; }
+        }
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+	    font-weight: bold;
+            line-height: 0pt;
+            display: inline;
+            white-space: pre;
+            font-family: monospace;
+            font-size: 1em;
+	    font-weight: bold;
+        }
+        pre {
+            font-size: 1em;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+	.pre {
+	    white-space: pre;
+	    font-family: monospace;
+	}
+	.header{
+	    font-weight: bold;
+	}
+        .newpage {
+            page-break-before: always;
+        }
+        .invisible {
+            text-decoration: none;
+            color: white;
+        }
+        a.selflink {
+          color: black;
+          text-decoration: none;
+        }
+        @media print {
+            body {
+                font-family: monospace;
+                font-size: 10.5pt;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                font-size: 1em;
+            }
+        
+            a:link, a:visited {
+                color: inherit;
+                text-decoration: none;
+            }
+            .noprint {
+                display: none;
+            }
+        }
+	@media screen {
+	    .grey, .grey a:link, .grey a:visited {
+		color: #777;
+	    }
+            .docinfo {
+                background-color: #EEE;
+            }
+            .top {
+                border-top: 7px solid #EEE;
+            }
+            .bgwhite  { background-color: white; }
+            .bgred    { background-color: #F44; }
+            .bggrey   { background-color: #666; }
+            .bgbrown  { background-color: #840; }            
+            .bgorange { background-color: #FA0; }
+            .bgyellow { background-color: #EE0; }
+            .bgmagenta{ background-color: #F4F; }
+            .bgblue   { background-color: #66F; }
+            .bgcyan   { background-color: #4DD; }
+            .bggreen  { background-color: #4F4; }
+
+            .legend   { font-size: 90%; }
+            .cplate   { font-size: 70%; border: solid grey 1px; }
+	}
+    </style>
+    <!--[if IE]>
+    <style>
+    body {
+       font-size: 13px;
+       margin: 10px 10px;
+    }
+    </style>
+    <![endif]-->
+
+    <script type="text/javascript"><!--
+    function addHeaderTags() {
+	var spans = document.getElementsByTagName("span");
+	for (var i=0; i < spans.length; i++) {
+	    var elem = spans[i];
+	    if (elem) {
+		var level = elem.getAttribute("class");
+                if (level == "h1" || level == "h2" || level == "h3" || level == "h4" || level == "h5" || level == "h6") {
+                    elem.innerHTML = "<"+level+">"+elem.innerHTML+"</"+level+">";		
+                }
+	    }
+	}
+    }
+    var legend_html = "Colour legend:<br />      <table>         <tr><td>Unknown:</td>                   <td><span class='cplate bgwhite'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Draft:</td>                     <td><span class='cplate bgred'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Informational:</td>             <td><span class='cplate bgorange'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Experimental:</td>              <td><span class='cplate bgyellow'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Best Common Practice:</td>      <td><span class='cplate bgmagenta'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Proposed Standard:</td>         <td><span class='cplate bgblue'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Draft Standard (old designation):</td> <td><span class='cplate bgcyan'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Internet Standard:</td>         <td><span class='cplate bggreen'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Historic:</td>                  <td><span class='cplate bggrey'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>         <tr><td>Obsolete:</td>                  <td><span class='cplate bgbrown'>&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>     </table>";
+    function showElem(id) {
+        var elem = document.getElementById(id);
+        elem.innerHTML = eval(id+"_html");
+        elem.style.visibility='visible';
+    }
+    function hideElem(id) {
+        var elem = document.getElementById(id);
+        elem.style.visibility='hidden';        
+        elem.innerHTML = "";
+    }
+    // -->
+    </script>
+</head>
+<body onload="addHeaderTags()" data-gr-c-s-loaded="true">
+  <div class="content">
+   <div style="height: 13px;">
+      <div onmouseover="this.style.cursor=&#39;pointer&#39;;" onclick="showElem(&#39;legend&#39;);" onmouseout="hideElem(&#39;legend&#39;)" style="height: 6px; position: absolute;" class="pre noprint docinfo bgred" title="Click for colour legend.">                                                                        </div>
+      <div id="legend" class="docinfo noprint pre legend" style="position:absolute; top: 4px; left: 4ex; visibility:hidden; background-color: white; padding: 4px 9px 5px 7px; border: solid #345 1px; " onmouseover="showElem(&#39;legend&#39;);" onmouseout="hideElem(&#39;legend&#39;);">
+      </div>
+   </div>
+<span class="pre noprint docinfo top">[<a href="https://tools.ietf.org/html/" title="Document search and retrieval page">Docs</a>] [<a href="https://tools.ietf.org/id/draft-sullivan-hash-to-curve-00.txt" title="Plaintext version of this document">txt</a>|<a href="https://tools.ietf.org/pdf/draft-sullivan-hash-to-curve-00.txt" title="PDF version of this document">pdf</a>] [<a href="https://datatracker.ietf.org/doc/draft-sullivan-hash-to-curve" title="IESG Datatracker information for this document">Tracker</a>] [<a href="mailto:draft-sullivan-hash-to-curve@ietf.org?subject=draft-sullivan-hash-to-curve%20" title="Send email to the document authors">Email</a>] [<a href="https://tools.ietf.org/idnits?url=https://tools.ietf.org/id/draft-sullivan-hash-to-curve-00.txt" title="Run an idnits check of this document">Nits</a>]                               </span><br>
+<span class="pre noprint docinfo">                                                                        </span><br>
+<span class="pre noprint docinfo">Versions: <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00">00</a>                                                            </span><br>
+<span class="pre noprint docinfo">                                                                        </span><br>
+<pre>Network Working Group                                        N. Sullivan
+Internet-Draft                                                Cloudflare
+Intended status: Informational                                   C. Wood
+Expires: September 6, 2018                                    Apple Inc.
+                                                          March 05, 2018
+
+
+                       <span class="h1"><h1>Hashing to Elliptic Curves</h1></span>
+                    <span class="h1"><h1>draft-sullivan-hash-to-curve-00</h1></span>
+
+Abstract
+
+   This document specifies a number of algorithms that may be used to
+   hash arbitrary strings to Elliptic Curves.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of <a href="https://tools.ietf.org/html/bcp78">BCP 78</a> and <a href="https://tools.ietf.org/html/bcp79">BCP 79</a>.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at <a href="http://datatracker.ietf.org/drafts/current/">http://datatracker.ietf.org/drafts/current/</a>.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on September 6, 2018.
+
+Copyright Notice
+
+   Copyright (c) 2018 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to <a href="https://tools.ietf.org/html/bcp78">BCP 78</a> and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (<a href="http://trustee.ietf.org/license-info">http://trustee.ietf.org/license-info</a>) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018               [Page 1]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-2" id="page-2" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-2" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+Table of Contents
+
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-1">1</a>.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-2">2</a>
+     <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-1.1">1.1</a>.  Requirements  . . . . . . . . . . . . . . . . . . . . . .   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-3">3</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-2">2</a>.  Algorithm Recommendations . . . . . . . . . . . . . . . . . .   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-3">3</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-3">3</a>.  Generic Interface . . . . . . . . . . . . . . . . . . . . . .   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-4">4</a>
+     <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-3.1">3.1</a>.  Utility Functions . . . . . . . . . . . . . . . . . . . .   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-4">4</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4">4</a>.  Hashing Variants  . . . . . . . . . . . . . . . . . . . . . .   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-5">5</a>
+     <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.1">4.1</a>.  Icart Method  . . . . . . . . . . . . . . . . . . . . . .   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-5">5</a>
+     <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.2">4.2</a>.  Shallue-Woestijne-Ulas Method . . . . . . . . . . . . . .   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-6">6</a>
+     <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.3">4.3</a>.  Simplified SWU Method . . . . . . . . . . . . . . . . . .   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-6">6</a>
+     <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.4">4.4</a>.  Elligator2 Method . . . . . . . . . . . . . . . . . . . .   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-8">8</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-5">5</a>.  Curve Transformations . . . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-10">10</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-6">6</a>.  Cost Comparison . . . . . . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-10">10</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-7">7</a>.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-11">11</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-8">8</a>.  Security Considerations . . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-11">11</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-9">9</a>.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-11">11</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-10">10</a>. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-11">11</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-11">11</a>. Normative References  . . . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-11">11</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-A">Appendix A</a>.  Try-and-Increment Method . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-13">13</a>
+   <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-B">Appendix B</a>.  Sample Code  . . . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-13">13</a>
+     <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-B.1">B.1</a>.  Icart Method  . . . . . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-13">13</a>
+     <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-B.2">B.2</a>.  Shallue-Woestijne-Ulas Method . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-14">14</a>
+     <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-B.3">B.3</a>.  Simplified SWU Method . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-15">15</a>
+     <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-B.4">B.4</a>.  Elligator2 Method . . . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-16">16</a>
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-17">17</a>
+
+<span class="h2"><h2><a class="selflink" name="section-1" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-1">1</a>.  Introduction</h2></span>
+
+   Many cryptographic protocols require a procedure which maps arbitrary
+   input, e.g., passwords, to points on an elliptic curve (EC).
+   Prominent examples include Simple Password Exponential Key Exchange
+   [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-Jablon96" title="&quot;Strong password-only authenticated key exchange&quot;">Jablon96</a>], Password Authenticated Key Exchange [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-BMP00" title="&quot;Provably secure password-authenticated key exchange using diffie-hellman&quot;">BMP00</a>], and Boneh-
+   Lynn-Shacham signatures [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-BLS01" title="&quot;Short signatures from the Weil pairing&quot;">BLS01</a>].
+
+   Let E be an elliptic curve over base field GF(p).  In practice,
+   efficient (polynomial-time) functions that hash arbitrary input to E
+   can be constructed by composing a cryptographically secure hash
+   function F1 : {0,1}^* -&gt;GF(p) and an injection F2 : GF(p) -&gt; E, i.e.,
+   Hash(m) = F2(F1(m)).  Probabilistic constructions of Hash, e.g., the
+   MapToGroup function described by Boneh et al.  [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-BLS01" title="&quot;Short signatures from the Weil pairing&quot;">BLS01</a>].  Their
+   algorithm fails with probability 2^I, where I is a tunable parameter
+   that one can control.  Another variant, dubbed the "Try and
+   Increment" approach, was described by Boneh et al.  [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-BLS01" title="&quot;Short signatures from the Weil pairing&quot;">BLS01</a>].  This
+   function works by hashing input m using a standard hash function,
+   e.g., SHA256, and then checking to see if the resulting point E(m,
+   f(m)), for curve function f, belongs on E.  This algorithm is
+   expected to find a valid curve point after approximately two
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018               [Page 2]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-3" id="page-3" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-3" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+   attempts, i.e., when ctr=1, on average.  (See <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-A">Appendix A</a>ppendix A for
+   a more detailed description of this algorithm.)  Since the running
+   time of the algorithm depends on m, this algorithm is NOT safe for
+   cases sensitive to timing side channel attacks.  Deterministic
+   algorithms are needed in such cases where failures are undesirable.
+   Shallue and Woestijne [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-SWU" title="&quot;Rational points on certain hyperelliptic curves over finite fields&quot;">SWU</a>] first introduced a deterministic
+   algorithm that maps elements in F_{q} to an EC in time O(log^4 q),
+   where q = p^n for some prime p, and time O(log^3 q) when q = 3 mod 4.
+   Icart introduced yet another deterministic algorithm which maps F_{q}
+   to any EC where q = 2 mod 3 in time O(log^3 q) [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-Icart09" title="&quot;How to Hash into Elliptic Curves&quot;">Icart09</a>].  Elligator
+   (2) [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-Elligator2" title="&quot;Elligator -- Elliptic-curve points indistinguishable from uniform random strings&quot;">Elligator2</a>] is yet another deterministic algorithm for any odd-
+   characteristic EC that has a point of order 2.  Elligator2 can be
+   applied to Curve25519 and Curve448, which are both CFRG-recommended
+   curves [<a href="https://tools.ietf.org/html/rfc7748" title="&quot;Elliptic Curves for Security&quot;">RFC7748</a>].
+
+   This document specifies several algorithms for deterministically
+   hashing onto a curve with varying properties: Icart, SWU, Simplified
+   SWU, and Elligator2.  Each algorithm conforms to a common interface,
+   i.e., it maps an element from a base field F to a curve E.  For each
+   variant, we describe the requirements for F and E to make it work.
+   Sample code for each variant is presented in the appendix.  Unless
+   otherwise stated, all elliptic curve points are assumed to be
+   represented as affine coordinates, i.e., (x, y) points on a curve.
+
+<span class="h3"><h3><a class="selflink" name="section-1.1" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-1.1">1.1</a>.  Requirements</h3></span>
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [<a href="https://tools.ietf.org/html/rfc2119" title="&quot;Key words for use in RFCs to Indicate Requirement Levels&quot;">RFC2119</a>].
+
+<span class="h2"><h2><a class="selflink" name="section-2" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-2">2</a>.  Algorithm Recommendations</h2></span>
+
+   The following table lists recommended algorithms to use for specific
+   curves.
+
+                  +------------+------------------------+
+                  | Curve      | Algorithm              |
+                  +------------+------------------------+
+                  | P-256      | SWU <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.3">Section 4.3</a>        |
+                  |            |                        |
+                  | P-384      | Icart <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.1">Section 4.1</a>      |
+                  |            |                        |
+                  | Curve25519 | Elligator2 <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.4">Section 4.4</a> |
+                  |            |                        |
+                  | Curve448   | Elligator2 <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.4">Section 4.4</a> |
+                  +------------+------------------------+
+
+
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018               [Page 3]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-4" id="page-4" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-4" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+   The SWU variant from Section <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.2">Section 4.2</a> applies to any curve.  As
+   such, this algorithm SHOULD be used if no other better alternative is
+   known.  More efficient variants and their curve requirements are
+   shown in the table below.  These MAY be used if the target curve
+   meets the listed criteria.
+
+   +--------------------+----------------------------------------------+
+   | Algorithm          | Requirement                                  |
+   +--------------------+----------------------------------------------+
+   | Icart <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.1">Section 4.1</a>  | p = 2 mod 3                                  |
+   |                    |                                              |
+   | SWU <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.2">Section 4.2</a>    | None                                         |
+   |                    |                                              |
+   | Simplified SWU     | p = 3 mod 4                                  |
+   | <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.3">Section 4.3</a>        |                                              |
+   |                    |                                              |
+   | Elligator2 Section | p is large and there is a point of order two |
+   | 4.4                | and j-invariant != 1728                      |
+   +--------------------+----------------------------------------------+
+
+<span class="h2"><h2><a class="selflink" name="section-3" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-3">3</a>.  Generic Interface</h2></span>
+
+   The generic interface for hashing to elliptic curves is as follows:
+
+   hash_to_curve(alpha)
+
+   where alpha is a message to hash onto a curve.
+
+<span class="h3"><h3><a class="selflink" name="section-3.1" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-3.1">3.1</a>.  Utility Functions</h3></span>
+
+   Algorithms in this document make use of utility functions described
+   below.
+
+   o  HashToBase(x): H(x)[0:log2(p) + 1], i.e., hash-truncate-reduce,
+      where H is a cryptographic hash function, such as SHA256, and p is
+      the prime order of base field Fp.
+
+   o  CMOV(a, b, c): If c = 1, return a, else return b.
+
+   Note: We assume that HashToBase maps its input to the base field
+   uniformly.  In practice, there may be inherent biases in p, e.g., p =
+   2^k - 1 will have non-negligible bias in higher bits.
+
+   ((TODO: expand on this problem))
+
+
+
+
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018               [Page 4]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-5" id="page-5" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-5" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+<span class="h2"><h2><a class="selflink" name="section-4" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4">4</a>.  Hashing Variants</h2></span>
+
+<span class="h3"><h3><a class="selflink" name="section-4.1" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.1">4.1</a>.  Icart Method</h3></span>
+
+   The following hash_to_curve_icart(alpha) implements the Icart method
+   from [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-Icart09" title="&quot;How to Hash into Elliptic Curves&quot;">Icart09</a>].  This algorithm works for any curve over F_{p^n},
+   where p^n = 2 mod 3 (or p = 2 mod 3 and for odd n), including:
+
+   o  P384
+
+   o  Curve1174
+
+   o  Curve448
+
+   Unsupported curves include: P224, P256, P521, and Curve25519 since,
+   for each, p = 1 mod 3.
+
+   Mathematically, given input alpha, and A and B from E, the Icart
+   method works as follows:
+
+   u = HashToBase(alpha)
+   x = (v^2 - b - (u^6 / 27))^(1/3) + (u^2 / 3)
+   y = ux + v
+
+   where v = ((3A - u^4) / 6u).
+
+   The following procedure implements this algorithm in a straight-line
+   fashion.  It requires knowledge of A and B, the constants from the
+   curve Weierstrass form.  It outputs a point with affine coordinates.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018               [Page 5]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-6" id="page-6" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-6" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+  hash_to_curve_icart(alpha)
+
+  Input:
+
+    alpha - value to be hashed, an octet string
+
+  Output:
+
+    (x, y) - a point in E
+
+  Steps:
+
+  1.   u = HashToBase(alpha)   // {0,1}^* -&gt; Fp
+  2.  u2 = u^2 (mod p)         // u^2
+  3.  t2 = u2^2 (mod p)        // u^4
+  4.  v1 = 3 * A (mod p)       // 3A
+  5.  v1 = v1 - t2 (mod p)     // 3A - u^4
+  6.  t1 = 6 * u (mod p)       // 6u
+  7.  t3 = t1 ^ (-1) (mod p)   // modular inverse
+  8.   v = v1 * t3 (mod p)     // (3A - u^4)/(6u)
+  9.   x = v^2 (mod p)         // v^2
+  10.  x = x - B (mod p)       // v^2 - b
+  11. t1 = 27 ^ (-1) (mod p)   // 1/27
+  12. t1 = t1 * u2 (mod p)     // u^4 / 27
+  13. t1 = t1 * t2 (mod p)     // u^6 / 27
+  14.  x = x - t1 (mod p)      // v^2 - b - u^6/27
+  15. t1 = (2 * p) - 1 (mod p) // 2p - 1
+  16. t1 = t1 / 3 (mod p)      // (2p - 1)/3
+  17.  x = x^t1 (mod p)        // (v^2 - b - u^6/27) ^ (1/3)
+  18. t2 = u2 / 3 (mod p)      // u^2 / 3
+  19.  x = x + t2 (mod p)      // (v^2 - b - u^6/27) ^ (1/3) + (u^2 / 3)
+  20.  y = u * x (mod p)       // ux
+  21.  y = y + v (mod p)       // ux + v
+  22. Output (x, y)
+
+
+<span class="h3"><h3><a class="selflink" name="section-4.2" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.2">4.2</a>.  Shallue-Woestijne-Ulas Method</h3></span>
+
+   ((TODO: write this section))
+
+<span class="h3"><h3><a class="selflink" name="section-4.3" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.3">4.3</a>.  Simplified SWU Method</h3></span>
+
+   The following hash_to_curve_simple_swu(alpha) implements the
+   simplfied Shallue-Woestijne-Ulas algorithm from [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-SimpleSWU" title="&quot;Efficient Indifferentiable Hashing into Ordinary Elliptic Curves&quot;">SimpleSWU</a>].  This
+   algorithm works for any curve over F_{p^n}, where p = 3 mod 4,
+   including:
+
+   o  P256
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018               [Page 6]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-7" id="page-7" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-7" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+   o  ...
+
+   Given curve equation g(x) = x^3 + Ax + B, this algorithm works as
+   follows:
+
+   1. t = HashToBase(alpha)
+   2. alpha = (-b / a) * (1 + (1 / (t^4 + t^2)))
+   3. beta = -t^2 * alpha
+   4. z = t^3 * g(alpha)
+   5. Output (-g * alpha) * (g * beta)
+
+   The following procedure implements this algorithm.  It outputs a
+   point with affine coordinates.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018               [Page 7]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-8" id="page-8" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-8" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+   hash_to_curve_simple_swu(alpha)
+
+   Input:
+
+     alpha - value to be hashed, an octet string
+
+   Output:
+
+     (x, y) - a point in E
+
+   Steps:
+
+   1.     t = HashToBase(alpha)
+   2. alpha = t^2 (mod p)
+   3. alpha = alpha * -1 (mod p)
+   4. right = alpha^2 + alpha (mod p)
+   5. right = right^(-1) (mod p)
+   6. right = right + 1 (mod p)
+   7.  left = B * -1 (mod p)
+   8.  left = left / A (mod p)
+   9.    x2 = left * right (mod p)
+   10.   x3 = alpha * x2 (mod p)
+   11.   h2 = x2 ^ 3 (mod p)
+   12.   i2 = x2 * A (mod p)
+   13.   i2 = i2 + B (mod p)
+   14.   h2 = h2 + i2 (mod p)
+   15.   h3 = x3 ^ 3 (mod p)
+   16.   i3 = x3 * A (mod p)
+   17.   i3 = i3 + B (mod p)
+   18.   h3 = h3 + i3 (mod p)
+   19.   y1 = h2 ^ ((p + 1) // 4) (mod p)
+   20.   y2 = h3 ^ ((p + 1) // 4) (mod p)
+   21.    e = (y1 ^ 2 == h2)
+   22.    x = CMOV(x2, x3, e)    // If e = 1, choose x2, else choose x3
+   23.    y = CMOV(y1, y2, e)    // If e = 1, choose y1, else choose y2
+   24. Output (x, y)
+
+<span class="h3"><h3><a class="selflink" name="section-4.4" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-4.4">4.4</a>.  Elligator2 Method</h3></span>
+
+   The following hash_to_curve_elligator2(alpha) implements the
+   Elligator2 method from [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-Elligator2" title="&quot;Elligator -- Elliptic-curve points indistinguishable from uniform random strings&quot;">Elligator2</a>].  This algorithm works for any
+   curve with a point of order 2 and j-invariant != 1728.  Given curve
+   equation f(x) = y^2 = x(x^2 + Ax + B), i.e., a Montgomery form with
+   the point of order 2 at (0,0), this algorithm works as shown below.
+   (Note that any curve with a point of order 2 is isomorphic to this
+   representation.)
+
+
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018               [Page 8]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-9" id="page-9" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-9" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+   1. r = HashToBase(alpha)
+   2. If f(-A/(1+ur^2)) is square, then output f(-A/(1+ur^2))^(1/2)
+   3. Else, output f(-Aur^2/(1+ur^2))^(1/2)
+
+   Another way to express this algorithm is as follows:
+
+   1. r = HashToBase(alpha)
+   2. d = -A / (1 + ur^2)
+   3. e = f(d)^((p-1)/2)
+   4. u = ed - (1 - e)A/u
+
+   Here, e is the Legendre symbol of y = (d^3 + Ad^2 + d), which will be
+   1 if y is a quadratic residue (square) mod p, and -1 otherwise.
+   (Note that raising y to ((p -1) / 2) is a common way to compute the
+   Legendre symbol.)
+
+   The following procedure implements this algorithm.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018               [Page 9]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-10" id="page-10" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-10" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+   hash_to_curve_elligator2(alpha)
+
+   Input:
+
+     alpha - value to be hashed, an octet string
+
+     u - fixed non-square value in Fp.
+     f() - Curve function
+
+   Output:
+
+     (x, y) - a point in E
+
+   Steps:
+
+   1.   r = HashToBase(alpha)
+   2.   r = r^2 (mod p)
+   3.  nu = r * u (mod p)
+   4.   r = nu
+   5.   r = r + 1 (mod p)
+   6.   r = r^(-1) (mod p)
+   7.   v = A * r (mod p)
+   8.   v = v * -1 (mod p)   // -A / (1 + ur^2)
+   9.  v2 = v^2 (mod p)
+   10. v3 = v * v2 (mod p)
+   11.  e = v3 * v (mod p)
+   12. v2 = v2 * A (mod p)
+   13.  e = v2 * e (mod p)
+   14.  e = e^((p - 1) / 2)  // Legendre symbol
+   15. nv = v * -1 (mod p)
+   16.  v = CMOV(v, nv, e)   // If e = 1, choose v, else choose nv
+   17. v2 = CMOV(0, A, e)    // If e = 1, choose 0, else choose A
+   18.  u = v - v2 (mod p)
+   19. Output (u, f(u))
+
+   Elligator2 can be simplified with projective coordinates.
+
+   ((TODO: write this variant))
+
+<span class="h2"><h2><a class="selflink" name="section-5" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-5">5</a>.  Curve Transformations</h2></span>
+
+   ((TODO: write this section))
+
+<span class="h2"><h2><a class="selflink" name="section-6" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-6">6</a>.  Cost Comparison</h2></span>
+
+   The following table summarizes the cost of each hash_to_curve
+   variant.  We express this cost in terms of additions (A),
+   multiplications (M), squares (SQ), and square roots (SR).
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018              [Page 10]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-11" id="page-11" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-11" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+   ((TODO: finish this section))
+
+             +--------------------------+-------------------+
+             | Algorithm                | Cost (Operations) |
+             +--------------------------+-------------------+
+             | hash_to_curve_icart      | TODO              |
+             |                          |                   |
+             | hash_to_curve_swu        | TODO              |
+             |                          |                   |
+             | hash_to_curve_simple_swu | TODO              |
+             |                          |                   |
+             | hash_to_curve_elligator2 | TODO              |
+             +--------------------------+-------------------+
+
+<span class="h2"><h2><a class="selflink" name="section-7" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-7">7</a>.  IANA Considerations</h2></span>
+
+   This document has no IANA actions.
+
+<span class="h2"><h2><a class="selflink" name="section-8" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-8">8</a>.  Security Considerations</h2></span>
+
+   Each hash function variant accepts arbitrary input and maps it to a
+   pseudorandom point on the curve.  Points are close to
+   indistinguishable from randomly chosen elements on the curve.  Some
+   variants variants are not full-domain hashes.  Elligator2, for
+   example, only maps strings to "about half of all curve points,"
+   whereas Icart's method only covers about 5/8 of the points.
+
+<span class="h2"><h2><a class="selflink" name="section-9" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-9">9</a>.  Acknowledgements</h2></span>
+
+   The authors would like to thank Adam Langley for this detailed
+   writeup up Elligator2 with Curve25519 [<a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#ref-ElligatorAGL" title="&quot;Implementing Elligator for Curve25519&quot;">ElligatorAGL</a>].  We also thank
+   Sean Devlin and Thomas Icart for feedback on earlier versions of this
+   document.
+
+<span class="h2"><h2><a class="selflink" name="section-10" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-10">10</a>.  Contributors</h2></span>
+
+   o  Sharon Goldberg
+      Boston University
+      goldbe@cs.bu.edu
+
+<span class="h2"><h2><a class="selflink" name="section-11" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-11">11</a>.  Normative References</h2></span>
+
+   [<a name="ref-BLS01" id="ref-BLS01">BLS01</a>]    "Short signatures from the Weil pairing", n.d.,
+              &lt;<a href="https://iacr.org/archive/asiacrypt2001/22480516.pdf">https://iacr.org/archive/asiacrypt2001/22480516.pdf</a>&gt;.
+
+   [<a name="ref-BMP00" id="ref-BMP00">BMP00</a>]    "Provably secure password-authenticated key exchange using
+              diffie-hellman", n.d..
+
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018              [Page 11]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-12" id="page-12" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-12" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+   [<a name="ref-ECOPRF" id="ref-ECOPRF">ECOPRF</a>]   "EC-OPRF - Oblivious Pseudorandom Functions using Elliptic
+              Curves", n.d..
+
+   [<a name="ref-Elligator2" id="ref-Elligator2">Elligator2</a>]
+              "Elligator -- Elliptic-curve points indistinguishable from
+              uniform random strings", n.d., &lt;<a href="https://dl.acm.org/ft_gateway.cfm?id=2516734&amp;type=pdf">https://dl.acm.org/</a>
+              <a href="https://dl.acm.org/ft_gateway.cfm?id=2516734&amp;type=pdf">ft_gateway.cfm?id=2516734&amp;type=pdf</a>&gt;.
+
+   [<a name="ref-ElligatorAGL" id="ref-ElligatorAGL">ElligatorAGL</a>]
+              "Implementing Elligator for Curve25519", n.d.,
+              &lt;<a href="https://www.imperialviolet.org/2013/12/25/elligator.html">https://www.imperialviolet.org/2013/12/25/</a>
+              <a href="https://www.imperialviolet.org/2013/12/25/elligator.html">elligator.html</a>&gt;.
+
+   [<a name="ref-Icart09" id="ref-Icart09">Icart09</a>]  "How to Hash into Elliptic Curves", n.d.,
+              &lt;<a href="https://eprint.iacr.org/2009/226.pdf">https://eprint.iacr.org/2009/226.pdf</a>&gt;.
+
+   [<a name="ref-Jablon96" id="ref-Jablon96">Jablon96</a>]
+              "Strong password-only authenticated key exchange", n.d..
+
+   [<a name="ref-RFC2119" id="ref-RFC2119">RFC2119</a>]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", <a href="https://tools.ietf.org/html/bcp14">BCP 14</a>, <a href="https://tools.ietf.org/html/rfc2119">RFC 2119</a>,
+              DOI 10.17487/RFC2119, March 1997, &lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-</a>
+              <a href="https://www.rfc-editor.org/info/rfc2119">editor.org/info/rfc2119</a>&gt;.
+
+   [<a name="ref-RFC7748" id="ref-RFC7748">RFC7748</a>]  Langley, A., Hamburg, M., and S. Turner, "Elliptic Curves
+              for Security", <a href="https://tools.ietf.org/html/rfc7748">RFC 7748</a>, DOI 10.17487/RFC7748, January
+              2016, &lt;<a href="https://www.rfc-editor.org/info/rfc7748">https://www.rfc-editor.org/info/rfc7748</a>&gt;.
+
+   [<a name="ref-RFC8017" id="ref-RFC8017">RFC8017</a>]  Moriarty, K., Ed., Kaliski, B., Jonsson, J., and A. Rusch,
+              "PKCS #1: RSA Cryptography Specifications Version 2.2",
+              <a href="https://tools.ietf.org/html/rfc8017">RFC 8017</a>, DOI 10.17487/RFC8017, November 2016,
+              &lt;<a href="https://www.rfc-editor.org/info/rfc8017">https://www.rfc-editor.org/info/rfc8017</a>&gt;.
+
+   [<a name="ref-RFC8032" id="ref-RFC8032">RFC8032</a>]  Josefsson, S. and I. Liusvaara, "Edwards-Curve Digital
+              Signature Algorithm (EdDSA)", <a href="https://tools.ietf.org/html/rfc8032">RFC 8032</a>,
+              DOI 10.17487/RFC8032, January 2017, &lt;<a href="https://www.rfc-editor.org/info/rfc8032">https://www.rfc-</a>
+              <a href="https://www.rfc-editor.org/info/rfc8032">editor.org/info/rfc8032</a>&gt;.
+
+   [<a name="ref-SECG1" id="ref-SECG1">SECG1</a>]    "SEC 1 -- Elliptic Curve Cryptography", n.d.,
+              &lt;<a href="http://www.secg.org/sec1-v2.pdf">http://www.secg.org/sec1-v2.pdf</a>&gt;.
+
+   [<a name="ref-SimpleSWU" id="ref-SimpleSWU">SimpleSWU</a>]
+              "Efficient Indifferentiable Hashing into Ordinary Elliptic
+              Curves", n.d..
+
+   [<a name="ref-SWU" id="ref-SWU">SWU</a>]      "Rational points on certain hyperelliptic curves over
+              finite fields", n.d., &lt;<a href="https://arxiv.org/pdf/0706.1448">https://arxiv.org/pdf/0706.1448</a>&gt;.
+
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018              [Page 12]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-13" id="page-13" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-13" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+<span class="h2"><h2><a class="selflink" name="appendix-A" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-A">Appendix A</a>.  Try-and-Increment Method</h2></span>
+
+   In cases where constant time execution is not required, the so-called
+   try-and-increment method may be appropriate.  As discussion in
+   Section <a href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#section-1">Section 1</a>, this variant works by hashing input m using a
+   standard hash function ("Hash"), e.g., SHA256, and then checking to
+   see if the resulting point E(m, f(m)), for curve function f, belongs
+   on E.  This is detailed below.
+
+   1. ctr = 0
+   3. h = "INVALID"
+   4. While h is "INVALID" or h is EC point at infinity:
+      A.  CTR = I2OSP(ctr, 4)
+      B.  ctr = ctr + 1
+      C.  attempted_hash = Hash(m || CTR)
+      D.  h = RS2ECP(attempted_hash)
+      E.  If h is not "INVALID" and cofactor &gt; 1, set h = h^cofactor
+   5. Output h
+
+   I2OSP is a function that converts a nonnegative integer to octet
+   string as defined in <a href="https://tools.ietf.org/html/rfc8017#section-4.1">Section&nbsp;4.1 of [RFC8017]</a>, and RS2ECP is a
+   function that converts of a random 2n-octet string to an EC point as
+   specified in <a href="https://tools.ietf.org/html/rfc8032#section-5.1.3">Section&nbsp;5.1.3 of [RFC8032]</a>.
+
+<span class="h2"><h2><a class="selflink" name="appendix-B" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-B">Appendix B</a>.  Sample Code</h2></span>
+
+<span class="h3"><h3><a class="selflink" name="appendix-B.1" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-B.1">B.1</a>.  Icart Method</h3></span>
+
+   The following Sage program implements hash_to_curve_icart(alpha) for
+   P-384.
+
+p = 394020061963944792122790401001436138050797392704654466679482934042 \
+45721771496870329047266088258938001861606973112319
+F = GF(p)
+A = p - 3
+B = 0xb3312fa7e23ee7e4988e056be3f82d19181d9c6efe8141120314088f5013875a \
+c656398d8a2ed19d2a85c8edd3ec2aef
+q = 394020061963944792122790401001436138050797392704654466679469052796 \
+27659399113263569398956308152294913554433653942643
+E = EllipticCurve([F(A), F(B)])
+g = E(0xaa87ca22be8b05378eb1c71ef320ad746e1d3b628ba79b9859f741e082542a \
+385502f25dbf55296c3a545e3872760ab7, \
+    0x3617de4a96262c6f5d9e98bf9292dc29f8f41dbd289a147ce9da3113b5f0b8c0 \
+0a60b1ce1d7e819d7a431d7c90ea0e5f)
+E.set_order(q)
+
+def icart(u):
+  u = F(u)
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018              [Page 13]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-14" id="page-14" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-14" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+  v = (3*A - u^4)//(6*u)
+  x = (v^2 - B - u^6/27)^((2*p-1)//3) + u^2/3
+  y = u*x + v
+  return E(x, y)
+
+def icart_straight(u):
+    u = F(u)
+    u2 = u ^ 2
+    t2 = u2 ^ 2
+    assert t2 == u^4
+
+    v1 = 3 * A
+    v1 = v1 - t2
+    t1 = 6 * u
+    t3 = t1 ^ (-1)
+    v = v1 * t3
+    assert v == (3 * A - u^4) // (6 * u)
+
+    x = v ^ 2
+    x = x - B
+    assert x == (v^2 - B)
+
+    t1 = F(27) ^ (-1)
+    t1 = t1 * u2
+    t1 = t1 * t2
+    assert t1 == ((u^6) / 27)
+
+    x = x - t1
+    t1 = (2 * p) - 1
+    t1 = t1 / 3
+    assert t1 == ((2*p) - 1) / 3
+
+    x = x ^ t1
+
+    t2 = u2 / 3
+    x = x + t2
+    y = u * x
+    y = y + v
+    return E(x, y)
+
+<span class="h3"><h3><a class="selflink" name="appendix-B.2" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-B.2">B.2</a>.  Shallue-Woestijne-Ulas Method</h3></span>
+
+   ((TODO: write this section))
+
+
+
+
+
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018              [Page 14]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-15" id="page-15" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-15" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+<span class="h3"><h3><a class="selflink" name="appendix-B.3" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-B.3">B.3</a>.  Simplified SWU Method</h3></span>
+
+   The following Sage program implements hash_to_curve_swu(alpha) for
+   P-256.
+
+p = 115792089210356248762697446949407573530086143415290314195533631308 \
+867097853951
+F = GF(p)
+A = F(p - 3)
+B = F(ZZ("5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2 \
+604b", 16))
+E = EllipticCurve([A, B])
+
+def simple_swu(alpha):
+    t = F(alpha)
+
+    alpha = -(t^2)
+    frac = (1 / (alpha^2 + alpha))
+    x2 = (-B / A) * (1 + frac)
+
+    x3 = alpha * x2
+    h2 = x2^3 + A * x2 + B
+    h3 = x3^3 + A * x3 + B
+
+    if is_square(h2):
+        return E(x2, h2^((p + 1) // 4))
+    else:
+        return E(x3, h3^((p + 1) // 4))
+
+def simple_swu_straight(alpha):
+    t = F(alpha)
+
+    alpha = t^2
+    alpha = alpha * -1
+
+    right = alpha^2 + alpha
+    right = right^(-1)
+    right = right + 1
+
+    left = B * -1
+    left = left / A
+
+    x2 = left * right
+    x3 = alpha * x2
+
+    h2 = x2 ^ 3
+    i2 = x2 * A
+    i2 = i2 + B
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018              [Page 15]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-16" id="page-16" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-16" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+    h2 = h2 + i2
+
+    h3 = x3 ^ 3
+    i3 = x3 * A
+    i3 = i3 + B
+    h3 = h3 + i3
+
+    y1 = h2^((p + 1) // 4)
+    y2 = h3^((p + 1) // 4)
+
+    # Is it square?
+    e = y1^2 == h2
+
+    x = x2
+    if e != 1:
+        x = x3
+
+    y = y1
+    if e != 1:
+        y = y2
+
+    return E(x, y)
+
+<span class="h3"><h3><a class="selflink" name="appendix-B.4" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#appendix-B.4">B.4</a>.  Elligator2 Method</h3></span>
+
+   The following Sage program implements hash_to_curve_elligator2(alpha)
+   for Curve25519.
+
+   p = 2**255 - 19
+   F = GF(p)
+   A = 486662
+   B = 1
+   E = EllipticCurve(F, [0, A, 0, 1, 0])
+
+   def curve25519(x):
+       return x^3 + (A * x^2) + x
+
+   def elligator2(alpha):
+
+       r = F(alpha)
+
+       # u is a fixed nonsquare value, eg -1 if p==3 mod 4.
+       u = F(2) # F(2)
+       assert(not u.is_square())
+
+       # If f(-A/(1+ur^2)) is square, return its square root.
+       # Else, return the square root of f(-Aur^2/(1+ur^2)).
+       x = -A / (1 + (u * r^2))
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018              [Page 16]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-17" id="page-17" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-17" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+       y = curve25519(x)
+       if y.is_square(): # is this point square?
+           y = y.square_root()
+       else:
+           x = (-A * u * r^2) / (1 + (u * r^2))
+           y = curve25519(x).square_root()
+
+       return (x, curve25519(x))
+
+   def elligator2_straight(alpha):
+       r = F(alpha)
+
+       r = r^2
+       r = r * 2
+       r = r + 1
+       r = r^(-1)
+       v = A * r
+       v = v * -1 # d
+
+       v2 = v^2
+       v3 = v * v2
+       e = v3 + v
+       v2 = v2 * A
+       e = v2 + e
+
+       # Legendre symbol
+       e = e^((p - 1) / 2)
+
+       nv = v * -1
+       if e != 1:
+           v = nv
+
+       v2 = 0
+       if e != 1:
+           v2 = A
+
+       u = v - v2
+
+       return (u, curve25519(u))
+
+Authors' Addresses
+
+
+
+
+
+
+
+
+
+
+<span class="grey">Sullivan &amp; Wood         Expires September 6, 2018              [Page 17]</span></pre>
+<hr class="noprint" style="width: 96ex;" align="left"><!--NewPage--><pre class="newpage"><a name="page-18" id="page-18" href="https://tools.ietf.org/html/draft-sullivan-hash-to-curve-00#page-18" class="invisible"> </a>
+<span class="grey">Internet-Draft                hash-to-curve                   March 2018</span>
+
+
+   Nick Sullivan
+   Cloudflare
+   101 Townsend St
+   San Francisco
+   United States of America
+
+   Email: nick@cloudflare.com
+
+
+   Christopher A. Wood
+   Apple Inc.
+   One Apple Park Way
+   Cupertino, California 95014
+   United States of America
+
+   Email: cawood@apple.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sullivan &amp; Wood         Expires September 6, 2018              [Page 18]
+
+</pre><br>
+    <span class="noprint"><small><small>Html markup produced by rfcmarkup 1.129b, available from
+      <a href="https://tools.ietf.org/tools/rfcmarkup/">https://tools.ietf.org/tools/rfcmarkup/</a>
+    </small></small></span>
+  </div>
+
+
+</body></html>

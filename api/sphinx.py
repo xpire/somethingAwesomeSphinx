@@ -5,12 +5,13 @@ import hashlib
 from ecdsa import NIST256p
 import os
 
+
 '''
 This is my implementation of SPHINX's DE-PAKE algorithm, written in python on top of the `ecdsa` python package.
 
 Usage: 
 # --------- Start Client --------- 
-alpha = clientToPoint(x)
+alpha = clientToPoint(pwd + domain)
 # ---------  End Client  ---------
 
 # send alpha to Device
@@ -67,7 +68,7 @@ def I2OSP(x: int, x_len: int = 4) -> str:
     return b'\x00' * int(x_len-len(x)) + x
 
 # https://tools.ietf.org/html/draft-irtf-cfrg-hash-to-curve-02#appendix-C.5
-def HashToBase(x: bytearray, i: int, label: str="label", p: int=ORDER) -> int:
+def HashToBase(x: bytearray, i: int, label: str="label", p: int=NIST256p.order) -> int:
     '''Hashes the bytearray x with a label string, the hash call index i, and
        returns y, a value in the field F_p
     '''
@@ -141,17 +142,17 @@ def clientToPoint(pwd: str) -> (ecc.Point, int):
     return hdashx * rho, rho # alpha = hdashx^rho
 
 # Device
-def deviceToClient(alpha: ecc.Point, index: int=1) -> ecc.Point:
-    '''input the point on the curve. If it is in the Group, we store
-       a random key D that corresponds to this point, and return the point
-       exponeniated to D.
-    '''
-    if curve_256.contains_point(alpha.x(), alpha.y()) != True:
-        return 0
-    randomBytes = os.urandom(32)
-    d = HashToBase(randomBytes, index)
-    print("DEVICE: I am going to store d: ", d)
-    return d * alpha # beta = alpha^d
+# def deviceToClient(alpha: ecc.Point, index: int=1) -> ecc.Point:
+#     '''input the point on the curve. If it is in the Group, we store
+#        a random key D that corresponds to this point, and return the point
+#        exponeniated to D.
+#     '''
+#     if curve_256.contains_point(alpha.x(), alpha.y()) != True:
+#         raise ValueError("Point {} does not exist on curve {}".format(alpha, curve_256))
+#     randomBytes = os.urandom(32)
+#     d = HashToBase(randomBytes, index)
+#     print("DEVICE: I am going to store d: ", d)
+#     return d * alpha, d # beta = alpha^d
 
 # Client 2
 def clientToPassword(beta: ecc.Point) -> str:
@@ -160,7 +161,7 @@ def clientToPassword(beta: ecc.Point) -> str:
        OPRF to create the byte array which generates the final password rwd
     '''
     if curve_256.contains_point(beta.x(), beta.y()) != True:
-        return 0
+        raise ValueError("Point {} does not exist on curve {}".format(beta, curve_256))
     final = beta * pow(rho, ORDER-2, ORDER)
     rwdbytes = OPRF(x, final)
     return gen_password(rwdbytes)

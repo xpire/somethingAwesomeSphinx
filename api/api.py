@@ -32,38 +32,33 @@ http://127.0.0.1:5000/?x=5718502119549772989160321845312506979544073346044536676
 
 """
 
-def str_int(integer):
-    return "{:d}".format(integer)
-
 # Helper functions
-def init():
+def execute_close(query: str, args: tuple, commit: bool=False) -> list:
     conn = sqlite3.connect(DEVICEDB)
     c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS device
-                 (x_value string, y_value string, device_key string)''')
-    conn.commit()
-    conn.close()
+    if args:
+        result = c.execute(query, args).fetchall()
+    else:
+        result = c.execute(query).fetchall()
 
-def insert(Point, d):
-    conn = sqlite3.connect(DEVICEDB)
-    c = conn.cursor()
-    c.execute("INSERT INTO device VALUES (?, ?, ?)", (str_int(Point.x()), str_int(Point.y()), str_int(d)))
-    conn.commit()
-    conn.close()
+    if commit:
+        conn.commit()
 
-def query(Point):
-    conn = sqlite3.connect(DEVICEDB)
-    c = conn.cursor()
-    result = c.execute('SELECT * FROM device WHERE x_value=(?) AND y_value=(?) LIMIT 1;', (str_int(Point.x()), str_int(Point.y()))).fetchall()
     conn.close()
     return result
+
+def init():
+    return execute_close('''CREATE TABLE IF NOT EXISTS device
+                 (x text, y text, d text)''', None, commit=True)
+
+def insert(x, y, d):
+    return execute_close("INSERT INTO device (x, y, d) VALUES (?, ?, ?)", (x,y,d), commit=True)
+
+def query(x, y):
+    return execute_close('SELECT d FROM device WHERE x=(?) AND y=(?) LIMIT 1;', (x,y))
 
 def queryAll():
-    conn = sqlite3.connect(DEVICEDB)
-    c = conn.cursor()
-    result = c.execute("pragma table_info('device');").fetchall()
-    conn.close()
-    return result
+    return execute_close('SELECT * FROM device', None)
 
 # initialise db
 init()
@@ -77,30 +72,33 @@ def Device(args):
        exponeniated to D.
     '''
     try:
+        # check if curve contains points
+        if curve_256.contains_point(int(args['x']), int(args['y'])) != True:
+           raise ValueError("Point ({},{}) does not exist on {}".format(args['x'], args['y'], curve_256))
+
         # convert x and y into a point on curve_256
         alpha = Point(curve_256, int(args["x"]), int(args["y"]))
-        #if curve_256.contains_point(alpha.x(), alpha.y()) != True:
-        #    raise ValueError("Point {} does not exist on curve {}".format(alpha, curve_256))
+
         # Check if this point is in my database
-        result = query(alpha)
-        logging.info(result)
+        result = query(str(int(alpha.x())), str(int(alpha.y())))
         if result:
-            result = result[0]
+            d = int(result[0][0])
         else:
             randomBytes = os.urandom(32)
-            d = HashToBase(randomBytes, args["index"])
-            result = d
-            insert(alpha, d)
-        logging.info("DEVICE: I am going to store d: {}".format(d))
+            d = int(HashToBase(randomBytes, args["index"]))
+            insert(str(int(alpha.x())), str(int(alpha.y())), str(int(d)))
+        logging.info("DEVICE: Storing d: {}".format(d))
+
         beta = d * alpha # beta = alpha^d
-        # TODO store d in database, key is the curve coordinates x||y.
+
         return flask.jsonify({"x": beta.x(), "y":beta.y()})
+
     except:
         return flask.jsonify({"error": str(sys.exc_info())})
 
 @app.route('/device', methods=['GET'])
 def getAll():
     result = queryAll()
-    logging.info(result)
     return flask.jsonify(queryAll())
+
 app.run()

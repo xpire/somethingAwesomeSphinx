@@ -7,3 +7,6 @@ itsdangerous==1.1.0
 MarkupSafe==1.1.1 
 webargs==6.0.0 
 marshmallow==3.5.1 
+astunparse==1.6.3 
+pixiedust==1.1.18 
+pixiedust-node==0.2.5  

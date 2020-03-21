@@ -13,41 +13,43 @@ function getSteps() {
     return ['Client: generate alpha', 'Device: return beta', 'Client: generate rwd']
 }
   
-function getStepContent(step) {
-    // dynamically generate this information
-    switch (step) {
-        case 0:
-            return `generating alpha`;
-        case 1:
-           return `send alpha, recieve beta`;
-        case 2:
-           return `generating rwd`;
-        default:
-            return `Unknown Step`
-    }
-}
+// function getStepContent(step) {
+//     // dynamically generate this information
+//     switch (step) {
+//         case 0:
+//             return `generating alpha`;
+//         case 1:
+//            return `send alpha, recieve beta`;
+//         case 2:
+//            return `generating rwd`;
+//         default:
+//             return `Unknown Step`
+//     }
+// }
 
 
 
-export default function MyStepper(props) {
-    const [activeStep, setActiveStep] = React.useState(props);
+export default function MyStepper({activeStep, stepContent}) {
+    // const [activeStep, setActiveStep] = React.useState(props);
     const steps = getSteps();
 
-    useEffect(() => {
-        setActiveStep(props);
-    }, [props]);
+    // useEffect(() => {
+    //     setActiveStep(props);
+    // }, [props]);
 
     return (
         <div>
             <Stepper className='stepper' activeStep={activeStep} orientation="vertical">
                 {steps.map((label, index) => (
-                    <Step key={label}>
+                    <Step key={label} expanded={true}>
                         <StepLabel>{label}</StepLabel>
                         <StepContent>
-                            <Typography>{getStepContent(index)}</Typography>
-                            <div>
-                                <CircularProgress/>
-                            </div>
+                            <Typography>{stepContent[index]}</Typography>
+                            {activeStep === index && (
+                                <div>
+                                    <CircularProgress/>
+                                </div>
+                            )}
                         </StepContent>
                     </Step>
                 ))}

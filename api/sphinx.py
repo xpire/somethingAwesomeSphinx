@@ -7,6 +7,9 @@ import os
 
 
 '''
+To use interactively, call this program with the following line
+```python -i sphinx.py```
+
 This is my implementation of SPHINX's DE-PAKE algorithm, written in python on top of the `ecdsa` python package.
 
 Usage: 
@@ -76,7 +79,8 @@ def HashToBase(x: bytearray, i: int, label: str="label", p: int=NIST256p.order) 
     toHash = ["h2c", label, I2OSP(i, 4), x]
     H.update(b"hc2")
     H.update(label.encode())
-    H.update(I2OSP(i,4))
+    # H.update(I2OSP(i,4))
+    H.update(str(i).encode())
     H.update(x)
     t1 = H.digest()
     t2 = OS2IP(t1)
@@ -84,15 +88,15 @@ def HashToBase(x: bytearray, i: int, label: str="label", p: int=NIST256p.order) 
 
 # https://tools.ietf.org/html/draft-irtf-cfrg-hash-to-curve-02#section-5.2.3
 # Implementation of H' which maps from bytearray -> g \in G
-def map2curve_simple_swu(alpha: bytearray) -> ecc.Point:
+def map2curve_simple_swu(alpha: bytearray, i: int=1) -> ecc.Point:
     '''Maps the octet bytearray alpha into the elliptic curve, and returns a 
        point from the elliptic curve.
     '''
-    t =  HashToBase(alpha, 1)
+    t =  HashToBase(alpha, i)
     alpha = pow(t, 2, PRIME)
     alpha = -alpha % PRIME
     right = (pow(alpha, 2, PRIME) + alpha) % PRIME
-    right = pow(right, PRIME-2, PRIME) # right^(-1) % PRIME    
+    right = pow(right, PRIME-2, PRIME) # right^(-1) % PRIME   
     right = (right + 1)  % PRIME
     left = -B % PRIME
     left =  (left * pow(A, PRIME-2, PRIME)) % PRIME # (left * A^-1) % PRIME
@@ -142,17 +146,17 @@ def clientToPoint(pwd: str) -> (ecc.Point, int):
     return hdashx * rho, rho # alpha = hdashx^rho
 
 # Device
-# def deviceToClient(alpha: ecc.Point, index: int=1) -> ecc.Point:
-#     '''input the point on the curve. If it is in the Group, we store
-#        a random key D that corresponds to this point, and return the point
-#        exponeniated to D.
-#     '''
-#     if curve_256.contains_point(alpha.x(), alpha.y()) != True:
-#         raise ValueError("Point {} does not exist on curve {}".format(alpha, curve_256))
-#     randomBytes = os.urandom(32)
-#     d = HashToBase(randomBytes, index)
-#     print("DEVICE: I am going to store d: ", d)
-#     return d * alpha, d # beta = alpha^d
+def deviceToClient(alpha: ecc.Point, index: int=1) -> ecc.Point:
+    '''input the point on the curve. If it is in the Group, we store
+       a random key D that corresponds to this point, and return the point
+       exponeniated to D.
+    '''
+    if curve_256.contains_point(alpha.x(), alpha.y()) != True:
+        raise ValueError("Point {} does not exist on curve {}".format(alpha, curve_256))
+    randomBytes = os.urandom(32)
+    d = HashToBase(randomBytes, index)
+    print("DEVICE: I am going to store d: ", d)
+    return d * alpha, d # beta = alpha^d
 
 # Client 2
 def clientToPassword(beta: ecc.Point) -> str:
@@ -165,3 +169,12 @@ def clientToPassword(beta: ecc.Point) -> str:
     final = beta * pow(rho, ORDER-2, ORDER)
     rwdbytes = OPRF(x, final)
     return gen_password(rwdbytes)
+
+# helper functions for javascript
+def generatePointOnCurve(seed=1):
+    alpha, rho = clientToPoint(seed)
+    print("alpha = ", hex(alpha.x()), hex(alpha.y()), hex(rho))
+    print("curve params: ")
+    print("Prime: ", hex(PRIME))
+    print("A: ", hex(A))
+    print("B: ", hex(B))

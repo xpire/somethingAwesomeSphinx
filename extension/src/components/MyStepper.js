@@ -29,7 +29,7 @@ function getSteps() {
 
 
 
-export default function MyStepper({activeStep, stepContent}) {
+export default function MyStepper({activeStep, stepContent, appear}) {
     // const [activeStep, setActiveStep] = React.useState(props);
     const steps = getSteps();
 
@@ -44,7 +44,10 @@ export default function MyStepper({activeStep, stepContent}) {
                     <Step key={label} expanded={true}>
                         <StepLabel>{label}</StepLabel>
                         <StepContent>
-                            <Typography>{stepContent[index]}</Typography>
+                            {stepContent[index].split('\n').map((line, lineIndex) => (
+                                <Typography key={label+index+lineIndex}>{line}</Typography>
+                            ))}
+                            {/* <Typography display="block">{stepContent[index]}</Typography> */}
                             {activeStep === index && (
                                 <div>
                                     <CircularProgress/>
@@ -53,7 +56,7 @@ export default function MyStepper({activeStep, stepContent}) {
                         </StepContent>
                     </Step>
                 ))}
-            </Stepper>
+                </Stepper>
             {activeStep === steps.length && (
                 <Paper square elevation={0}>
                     <Typography>Done.</Typography>

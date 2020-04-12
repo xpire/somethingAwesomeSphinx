@@ -45,7 +45,7 @@ class App extends React.Component {
 
   }
 
-  componentDidMount() {
+  getDomain() {
     chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
       try {
         // use `url` here inside the callback because it's asynchronous!
@@ -57,6 +57,10 @@ class App extends React.Component {
         console.log(e)
       }
     });
+  }
+
+  componentDidMount() {
+    this.getDomain();
   }
 
   resetStateWithUpdates(stateUpdates = {}) {
@@ -398,103 +402,101 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header" >
-          <Paper padding="10">
-            <Grid container direction="column" spacing={1}>
-              <Grid item>
-                <Typography variant="h3">
-                  sphinx.
-                </Typography>
-              </Grid>
-              <Grid item>
-              <form onSubmit={this.submitHandler}>
-                    <Grid container spacing={3} justify="center">
-                      <Grid item xs={5}>
-                          <TextField 
-                          required id='required' 
-                          // ref = 'username' 
-                          label='username' 
-                          name='username' 
-                          fullWidth 
-                          margin="normal" 
-                          onChange={this.changeHandler}
-                          value={this.state.username}
-                          />
-                      </Grid>
-                      <Grid item xs={5}>
-                        <>
-                          <TextField 
-                          required 
-                          id='standard-password-required' 
-                          // ref='password' 
-                          label='password' 
-                          name='password' 
-                          type='password' 
-                          fullWidth 
-                          margin="normal" 
-                          onChange={this.changeHandler}
-                          value={this.state.password}
-                          />
-                        </>
-                      </Grid>
-                      <Grid item xs={10}>
-                        <>
-                          <TextField 
-                          required 
-                          id='required' 
-                          // ref='domain' 
-                          label='domain' 
-                          name='domain' 
-                          fullWidth 
-                          margin="normal" 
-                          onChange={this.changeHandler} 
-                          value={this.state.domain}
-                          />
-                        </>
-                      </Grid>
+          <Grid container direction="column" spacing={1}>
+            <Grid item>
+              <Typography variant="h3">
+                sphinx.
+              </Typography>
+            </Grid>
+            <Grid item>
+            <form onSubmit={this.submitHandler}>
+                  <Grid container spacing={3} justify="center">
+                    <Grid item xs={5}>
+                        <TextField 
+                        required id='required' 
+                        // ref = 'username' 
+                        label='username' 
+                        name='username' 
+                        fullWidth 
+                        margin="normal" 
+                        onChange={this.changeHandler}
+                        value={this.state.username}
+                        />
                     </Grid>
-                <Grid style={{position: 'relative'}}>
-                  <Button variant='contained' color='primary' name='submit' type='submit' value="Submit" disabled={this.state.buttonDisabled}>Login</Button>
-                  {this.state.buttonDisabled && <CircularProgress size={24} style={{position: 'absolute', top: '50%', left: '50%', marginTop: -12, marginLeft: -12 }}/>}
-                </Grid>
-                </form>
-                <Grid container spacing={3} justify="center">
-                  <Grid item xs={10}>
-                    <>
-                      <TextField  
-                      id='required' 
-                      label='rwd' 
-                      name='rwd' 
-                      fullWidth 
-                      margin="normal"
-                      variant="outlined" 
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                      onChange={this.changeHandler} 
-                      value={this.state.rwd}
-                      />
-                    </>
+                    <Grid item xs={5}>
+                      <>
+                        <TextField 
+                        required 
+                        id='standard-password-required' 
+                        // ref='password' 
+                        label='password' 
+                        name='password' 
+                        type='password' 
+                        fullWidth 
+                        margin="normal" 
+                        onChange={this.changeHandler}
+                        value={this.state.password}
+                        />
+                      </>
+                    </Grid>
+                    <Grid item xs={10}>
+                      <>
+                        <TextField 
+                        required 
+                        id='required' 
+                        // ref='domain' 
+                        label='domain' 
+                        name='domain' 
+                        fullWidth 
+                        margin="normal" 
+                        onChange={this.changeHandler} 
+                        value={this.state.domain}
+                        />
+                      </>
+                    </Grid>
                   </Grid>
-                </Grid>
+              <Grid style={{position: 'relative'}}>
+                <Button variant='contained' color='primary' name='submit' type='submit' value="Submit" disabled={this.state.buttonDisabled}>Login</Button>
+                {this.state.buttonDisabled && <CircularProgress size={24} style={{position: 'absolute', top: '50%', left: '50%', marginTop: -12, marginLeft: -12 }}/>}
               </Grid>
-              <Grid item>
-                <ExpansionPanel elevation={0}>
-                  <ExpansionPanelSummary 
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                  >
-                    <Typography>
-                      Advanced
-                    </Typography>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails style={{"maxWidth": "600px"}}>
-                    <MyStepper activeStep={this.state.currStep} stepContent={this.state.stepContent} appear={this.state.stepperAppear} style={{"maxWidth": "600px"}}/>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
+              </form>
+              <Grid container spacing={3} justify="center">
+                <Grid item xs={10}>
+                  <>
+                    <TextField  
+                    id='required' 
+                    label='rwd' 
+                    name='rwd' 
+                    fullWidth 
+                    margin="normal"
+                    variant="outlined" 
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    onChange={this.changeHandler} 
+                    value={this.state.rwd}
+                    />
+                  </>
+                </Grid>
               </Grid>
             </Grid>
-          </Paper>
+            <Grid item>
+              <ExpansionPanel elevation={0}>
+                <ExpansionPanelSummary 
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                >
+                  <Typography>
+                    Advanced
+                  </Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails style={{"maxWidth": "600px"}}>
+                  <MyStepper activeStep={this.state.currStep} stepContent={this.state.stepContent} appear={this.state.stepperAppear} style={{"maxWidth": "600px"}}/>
+                </ExpansionPanelDetails>
+              </ExpansionPanel>
+            </Grid>
+          </Grid>
         </header>
       </div>
     );

@@ -1,23 +1,25 @@
 .App {
-  text-align: center;
+    text-align: center;
+    width: 650px;
+    height: 400px;
 }
 
 .App-header {
-  background-color: white;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  flex-grow: inherit;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: black;
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-grow: inherit;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
 }
 
 .input {
-  text-align: -webkit-left;
+    text-align: -webkit-left;
 }
 
 .stepper {
-  text-align: left;
+    text-align: left;
 }

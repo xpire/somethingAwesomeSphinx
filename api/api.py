@@ -1,4 +1,5 @@
 import flask
+from flask import json
 from webargs import fields
 import ecdsa.ellipticcurve as ecc
 from binascii import hexlify, unhexlify
@@ -12,9 +13,12 @@ import sqlite3
 import logging
 import os
 
+from flask_cors import CORS
+
 logging.basicConfig(level=logging.DEBUG)
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+CORS(app)
 
 DEVICEDB = "device.db"
 
@@ -91,10 +95,18 @@ def Device(args):
 
         beta = d * alpha # beta = alpha^d
 
-        return flask.jsonify({"x": beta.x(), "y":beta.y()})
+        data = {"x": str(beta.x()), "y": str(beta.y())}
+        payload = json.dumps(data)
+        good_response = flask.Response(payload, status=200, mimetype='application/json')
+        good_response.headers["Access-Control-Allow-Origin"]= "*"
+        return good_response
 
     except:
-        return flask.jsonify({"error": str(sys.exc_info())})
+        data = {"error": str(sys.exc_info())}
+        payload = json.dumps(data)
+        bad_response = flask.Response(payload , status=400, mimetype='application/json')
+        good_response.headers["Access-Control-Allow-Origin"]= "*"
+        return bad_response
 
 @app.route('/device', methods=['GET'])
 def getAll():

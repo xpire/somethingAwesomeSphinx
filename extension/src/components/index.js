@@ -1,1 +1,1 @@
-export * from 'MyStepper.js';    
+export * from './MyStepper.jsx';

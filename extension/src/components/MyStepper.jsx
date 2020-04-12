@@ -45,7 +45,9 @@ export default function MyStepper({activeStep, stepContent, appear}) {
                         <StepLabel>{label}</StepLabel>
                         <StepContent>
                             {stepContent[index].split('\n').map((line, lineIndex) => (
-                                <Typography key={label+index+lineIndex}>{line}</Typography>
+                                <Typography key={label+index+lineIndex} noWrap={false} style={{"maxWidth": "500px", "overflowWrap": "break-word"}}>
+                                    {"- " + line}
+                                </Typography>
                             ))}
                             {/* <Typography display="block">{stepContent[index]}</Typography> */}
                             {activeStep === index && (

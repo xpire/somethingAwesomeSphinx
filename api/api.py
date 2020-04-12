@@ -53,13 +53,13 @@ def execute_close(query: str, args: tuple, commit: bool=False) -> list:
 
 def init():
     return execute_close('''CREATE TABLE IF NOT EXISTS device
-                 (x text, y text, d text)''', None, commit=True)
+                 (hashid text, d text)''', None, commit=True)
 
-def insert(x, y, d):
-    return execute_close("INSERT INTO device (x, y, d) VALUES (?, ?, ?)", (x,y,d), commit=True)
+def insert(hashid, d):
+    return execute_close("INSERT INTO device (hashid, d) VALUES (?, ?)", (hashid, d), commit=True)
 
-def query(x, y):
-    return execute_close('SELECT d FROM device WHERE x=(?) AND y=(?) LIMIT 1;', (x,y))
+def query(h):
+    return execute_close('SELECT d FROM device WHERE hashid=(?) LIMIT 1;', (h,))
 
 def queryAll():
     return execute_close('SELECT * FROM device', None)
@@ -68,7 +68,7 @@ def queryAll():
 init()
 
 @app.route('/', methods=['GET'])
-@use_args({"x": fields.Int(required=True), "y":fields.Int(required=True), "index":fields.Int(missing=1)}, location="query")
+@use_args({"hashid": fields.Str(required=True), "x": fields.Int(required=True), "y":fields.Int(required=True), "index":fields.Int(missing=1)}, location="query")
 # TODO: check if x and y are less than curve_256.p()
 def Device(args):
     '''input the point on the curve. If it is in the Group, we store
@@ -83,14 +83,18 @@ def Device(args):
         # convert x and y into a point on curve_256
         alpha = Point(curve_256, int(args["x"]), int(args["y"]))
 
-        # Check if this point is in my database
-        result = query(str(int(alpha.x())), str(int(alpha.y())))
+        # Check if this request is in my database
+        print(args['hashid'])
+        result = query(args['hashid'])
+        print("result = ", result)
+        # result = query(str(int(alpha.x())), str(int(alpha.y())))
         if result:
             d = int(result[0][0])
         else:
             randomBytes = os.urandom(32)
             d = int(HashToBase(randomBytes, args["index"]))
-            insert(str(int(alpha.x())), str(int(alpha.y())), str(int(d)))
+            # insert(str(int(alpha.x())), str(int(alpha.y())), str(int(d)))
+            insert(args['hashid'], str(int(d)))
         logging.info("DEVICE: Storing d: {}".format(d))
 
         beta = d * alpha # beta = alpha^d
@@ -105,7 +109,7 @@ def Device(args):
         data = {"error": str(sys.exc_info())}
         payload = json.dumps(data)
         bad_response = flask.Response(payload , status=400, mimetype='application/json')
-        good_response.headers["Access-Control-Allow-Origin"]= "*"
+        bad_response.headers["Access-Control-Allow-Origin"]= "*"
         return bad_response
 
 @app.route('/device', methods=['GET'])

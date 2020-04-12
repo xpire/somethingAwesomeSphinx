@@ -13,6 +13,7 @@ import './App.css';
 import { Typography } from '@material-ui/core';
 
 /* global BigInt */
+/*global chrome*/
 
 class App extends React.Component {
 
@@ -20,11 +21,11 @@ class App extends React.Component {
     username: '',
     password: '',
     domain: '',
+    index: 1,
     rwd: 'Login to generate password',
     currStep: -1,
     stepContent: ['','',''],
     buttonDisabled: false,
-    sphinx: {}, // for storing state specific information about current encrpytion
   }
 
   constructor(props) {
@@ -51,8 +52,14 @@ class App extends React.Component {
 
   MyLogging(stepIndex, lineToAdd) {
     console.log(stepIndex + ": " + lineToAdd);
-    const currentContent = this.state.stepContent[stepIndex];
-    let newCurrentContent = currentContent + '\n' + lineToAdd;
+    const currentContent = this.state.stepContent && this.state.stepContent[stepIndex];
+    let newCurrentContent = '';
+    if (currentContent) {
+      newCurrentContent = currentContent + '\n' + lineToAdd;
+    } else {
+      newCurrentContent = lineToAdd;
+    }
+    // let newCurrentContent = currentContent + '\n' + lineToAdd;
     const restContent = this.state.stepContent;
     restContent[stepIndex] = newCurrentContent;
     this.setState({stepContent: restContent});
@@ -164,12 +171,30 @@ class App extends React.Component {
     return retVal;
   }
 
-  clientToPoint = async function(pwddomain, verbose=false, step=0) {
-    const hdashx = this.map2curve_simple_swu(pwddomain, 1, verbose, step);
+  getSession = function(user, domain, index=1) {
+    // check if domain has been created before, else generates id for domain
+    const string = user + domain + index
+    chrome.storage.local.get([string], function(result) {
+      if (result) {
+        console.log('Login id is ' + result.key);
+        return result.key;
+      } else {
+        console.log('No existing login id.')
+      }
+    });
+    // create and store login id
+    const hashedId = this.sjcl.hash.sha256.hash(string)
+    const id = "0x" + this.sjcl.codec.hex.fromBits(hashedId);
+    chrome.storage.local.set({string: id}, function() {
+      console.log('Value is set to ' + id);
+    });
+    return id;
+  }
+
+  clientToPoint = async function(pwddomain, index=1, verbose=false, step=0) {
+    const hdashx = this.map2curve_simple_swu(pwddomain, index, verbose, step);
     const randomBuffer = new Uint32Array(1);
     const random = window.crypto.getRandomValues(randomBuffer);
-    // const rho = this.OS2IP(this.intToHex("0x" + random))
-    // const rho = this.I2OSP(random);
     const rho = this.intToHex(random.toString());
     const bnrho = new this.sjcl.bn(rho);
     verbose && this.MyLogging(step, `Generated random number rho = "${rho}".`)
@@ -195,9 +220,11 @@ class App extends React.Component {
   //   // ----------------------------------------------------------------
   // } 
 
-  deviceToClient = async function(alpha, verbose=false, step=1) {
+  deviceToClient = async function(alpha, pwd, domain, index, verbose=false, step=1) {
     const request = {method: "GET", headers: new Headers({"content_type":"application/json"}), mode: 'cors', cache: "no-cache"}
-    const params = { x: this.hexToInt(alpha.x.toString()).toString(), y: this.hexToInt(alpha.y.toString()).toString() };
+    const id = this.getSession(pwd, domain, index)
+    const params = { hashid: id, x: this.hexToInt(alpha.x.toString()).toString(), y: this.hexToInt(alpha.y.toString()).toString()};
+    this.MyLogging(step, `id is ${id}`);
     const urlParams = new URLSearchParams(Object.entries(params));
     const url = 'http://127.0.0.1:5000/?';
     verbose && this.MyLogging(step, `Sending request: "${url + urlParams}".`);
@@ -281,8 +308,10 @@ class App extends React.Component {
     
     console.log("called by", event);
     // call Encryption function
+    const user = this.state.username;
     const pwd = this.state.password;
     const dom = this.state.domain;
+    const index = this.state.index;
 
     let timeTaken = [0,0,0];
 
@@ -297,7 +326,7 @@ class App extends React.Component {
     // let promise = new Promise(this.tether.bind(this));
     const x = pwd+dom;
     this.MyLogging(0, `I'm appending ${pwd} and domain ${dom}. x=${x}`);
-    const result = await this.clientToPoint(x, true).then(
+    const result = await this.clientToPoint(x, index, true).then(
       async (result) => {
         // const result = this.clientToPoint(x);    
         // setTimeout(() => resolveFunc("Now it's done!"), 500)
@@ -312,7 +341,7 @@ class App extends React.Component {
     this.myIncrementCurrStep();
     start = performance.now();
     // promise = new Promise(this.tether.bind(this));
-    const beta = await this.deviceToClient(result.alpha, true, 1).then(
+    const beta = await this.deviceToClient(result.alpha, user, dom, index, true, 1).then(
       async (beta) => {
         this.MyLogging(1, `Done. result={beta: (${beta.x.toString()},${beta.y.toString()})}`)
         timeTaken[1] = performance.now()-start;

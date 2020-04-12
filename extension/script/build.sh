@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Thanks to https://dev.to/bayardlouis470/create-chrome-extension-in-react-3pna
+# this guy is a lifesaver
+
 build() {
     echo 'building react'
 

@@ -42,6 +42,21 @@ class App extends React.Component {
     this.B = '0x5AC635D8AA3A93E7B3EBBD55769886BC651D06B0CC53B0F63BCE3C3E27D2604B'
     this.Gx = '0x6B17D1F2E12C4247F8BCE6E563A440F277037D812DEB33A0F4A13945D898C296'
     this.Gy = '0x4FE342E2FE1A7F9B8EE7EB4A7C0F9E162BCE33576B315ECECBB6406837BF51F5'
+
+  }
+
+  componentDidMount() {
+    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+      try {
+        // use `url` here inside the callback because it's asynchronous!
+        const url = tabs[0].url;
+        const urlObject = new URL(url);
+        this.setState({domain: urlObject.host});
+        console.log(this.state.domain)
+      } catch(e) {
+        console.log(e)
+      }
+    });
   }
 
   resetStateWithUpdates(stateUpdates = {}) {

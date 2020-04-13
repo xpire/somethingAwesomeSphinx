@@ -1,0 +1,17 @@
+- Today I will be presenting my Something Awesome, sphinx.
+
+- What's sphinx? sphinx stands for a password store which perfectly hides from itself, no exaggeration! 
+- It is a novel implementation of a password store which remains secure even when the password manager itself has been compromised. 
+- Sound too good to be true? Welcome to the magic of cryptography :)
+
+- Here is a summary of my marking criteria, you can check out the full one in my blog.
+
+- Sphinx is based on elliptic curve cryptography. Ultimately, you can hash anything into a point on the elliptic curve, and add points together. You can check out my python notebook and blogs for more information.
+
+- Here is a slide from the authors of the sphinx paper. Say you are a User, and you want to login to a Server, from your ClientPC. Sphinx makes use of an external device or database.  
+- Sphinx makes use of an Oblivious Pseudo Random Function to generate passwords for the server from the user's master password. Oblivious means that the device can generate the password without ever seeing the user's master password. 
+- one of the extensions the authors of the sphinx paper proposed is to host the device as a webserver, rather than a smartphone. This is what I have done.
+
+- Let's see it in action
+
+

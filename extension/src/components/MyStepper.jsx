@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -6,7 +6,7 @@ import StepContent from '@material-ui/core/StepContent';
 import Paper from '@material-ui/core/Paper';
 import { Typography } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button'
+import ReactMarkdown from 'react-markdown/with-html';
 
 
 function getSteps() {
@@ -48,6 +48,7 @@ export default function MyStepper({activeStep, stepContent, appear}) {
                                 <Typography key={label+index+lineIndex} noWrap={false} style={{"maxWidth": "500px", "overflowWrap": "break-word"}}>
                                     {"- " + line}
                                 </Typography>
+                                // <ReactMarkdown key={label+index+lineIndex} noWrap={false} style={{"maxWidth": "500px", "overflowWrap": "break-word"}} source={"-" + line}/>
                             ))}
                             {/* <Typography display="block">{stepContent[index]}</Typography> */}
                             {activeStep === index && (

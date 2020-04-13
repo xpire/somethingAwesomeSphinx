@@ -218,7 +218,7 @@ class App extends React.Component {
     const bnrho = new this.sjcl.bn(rho);
     verbose && this.MyLogging(step, `Generated random number rho = "${rho}".`)
     const alpha = hdashx.mult(bnrho)
-    verbose && this.MyLogging(step, `Calculated alpha = hdashx * rho = (${alpha.y.toString()},${alpha.x.toString()})`)
+    verbose && this.MyLogging(step, `Calculated alpha = hdashx * rho = (${alpha.x.toString()},${alpha.y.toString()})`)
     return {"alpha": alpha, "rho": rho};
   }
   
@@ -280,7 +280,7 @@ class App extends React.Component {
         const final = betaPoint.mult(invrho);
         verbose && this.MyLogging(step, `Calculated beta * rho^-1 = (${final.x.toString()},${final.y.toString()})`);
         const rwdbytes = this.OPRF(x, final);
-        verbose && this.MyLogging(step, `OPRF: hashed x=${x} with point to get rwdbytes=${rwdbytes}`);
+        verbose && this.MyLogging(step, `OPRF: hashed x=${x} with point to get rwdbytes=${this.sjcl.codec.hex.fromBits(rwdbytes)}`);
         // return this.genPassword(rwdbytes);
         resolve(this.genPassword(rwdbytes))
       } catch(err) {
@@ -349,7 +349,7 @@ class App extends React.Component {
       async (result) => {
         // const result = this.clientToPoint(x);    
         // setTimeout(() => resolveFunc("Now it's done!"), 500)
-        this.MyLogging(0, `result={alpha: (${result.alpha.x.toString()},${result.alpha.y.toString()}), rho=${result.rho.toString()}}`)
+        // this.MyLogging(0, `result={alpha: (${result.alpha.x.toString()},${result.alpha.y.toString()}), rho=${result.rho.toString()}}`)
         timeTaken[0] = performance.now()-start;
         this.MyLogging(0, `time taken: ${timeTaken[0]}ms`);  
         return {alpha: result.alpha, rho: result.rho};
@@ -362,7 +362,7 @@ class App extends React.Component {
     // promise = new Promise(this.tether.bind(this));
     const beta = await this.deviceToClient(result.alpha, user, dom, index, true, 1).then(
       async (beta) => {
-        this.MyLogging(1, `Done. result={beta: (${beta.x.toString()},${beta.y.toString()})}`)
+        // this.MyLogging(1, `Done. result={beta: (${beta.x.toString()},${beta.y.toString()})}`)
         timeTaken[1] = performance.now()-start;
         this.MyLogging(1, `time taken: ${timeTaken[1]}ms`);  
         return beta;
@@ -372,7 +372,7 @@ class App extends React.Component {
     // Step 3: Beta to rwd
     this.myIncrementCurrStep();
     start = performance.now();
-    this.MyLogging(2, `I am generated rwd now.`);
+    // this.MyLogging(2, `I am generated rwd now.`);
     // promise = new Promise(this.tether.bind(this));
     const rwd = await this.clientToPassword(x, beta, result.rho, true).then(
       (rwd) => {

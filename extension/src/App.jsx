@@ -335,9 +335,9 @@ class App extends React.Component {
     let timeTaken = [0,0,0];
 
     // clear console
-    console.log(this.state)
-    this.resetStateWithUpdates({stepContent: ['','','']})
-    console.log(this.state)
+    // console.log(this.state)
+    // this.resetStateWithUpdates({stepContent: ['','','']})
+    // console.log(this.state)
 
     // Step 1: Client to Alpha
     this.myIncrementCurrStep();

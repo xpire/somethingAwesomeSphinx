@@ -2,6 +2,8 @@
 ### a password Store which Perfectly Hides from Itself (No eXaggeration)
 This repo contains the work I have done creating the SPHINX protocol in the paper for a password store system. This protocol makes use of device enhanced key encryption, and does not rely on public key infrastructure. The core idea is that this device can be malicious or be hacked with a MitM attack, and an attacker will learn nothing from the device. One of the out of scope goals in the paper was hosting the device on the web, to fully take advantage of the protocol. This implementation is a proof of concept of this goal.
 
+### [Youtube Live Demo](https://www.youtube.com/watch?v=jta72Zj-l14)
+
 ## Folder structure
 This repository holds a few smaller projects, which together form SPHINX.
 - `api`

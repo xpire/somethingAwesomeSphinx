@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "acorn": "^7.1.1",
     "bn.js": "^5.1.1",
-    "minimist": "^1.2.2",
+    "minimist": "^1.2.6",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-markdown": "^4.3.1",
